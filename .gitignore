@@ -9,3 +9,6 @@ dist/
 
 # Ignore environment configuration files
 .env
+
+#Ignore docker-compose
+.yml
