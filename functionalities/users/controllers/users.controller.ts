@@ -13,7 +13,7 @@ class UsersController{
     }
 
     async postUser(req: express.Request, res: express.Response){
-        const userId = await usersService.create(req);
+        const userId = await usersService.create(req.body);
         res.status(201).send({_id: userId});
     }
 
