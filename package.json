@@ -1,0 +1,27 @@
+{
+  "name": "progetto_backend",
+  "version": "1.0.0",
+  "description": "Back-end for Software enginering Course at University of Trento 2023",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "debug": "export DEBUG=* && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/G30-unitn-IngegneriaDelSoftware/back_end.git"
+  },
+  "author": "Miolato Riccardo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/G30-unitn-IngegneriaDelSoftware/back_end/issues"
+  },
+  "homepage": "https://github.com/G30-unitn-IngegneriaDelSoftware/back_end#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
+  }
+}
