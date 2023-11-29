@@ -11,14 +11,20 @@ export class UsersRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app.route('/users')
             .get(usersController.listUsers)
-            .post(usersController.postUser);
+            .post(
+                usersMiddleware.validateBodyFields,
+                usersController.postUser);
 
         this.app.param('userId', usersMiddleware.extractUserId);
         this.app.route('/users/:userId')
             .get(usersController.getUserById)
             .delete(usersController.removeUserById);
 
-        this.app.put('/users/:userId', usersController.putUserById);
+        this.app.put('/users/:userId', 
+            [
+                usersMiddleware.validateBodyFields,
+                usersController.putUserById
+            ]);
 
         this.app.patch('/users/:userId', usersController.patchUserById);
 
