@@ -3,6 +3,7 @@ import * as http from 'http'
 
 import { CommonRoutesConfig } from './functionalities/common/common.routes.config'
 import { UsersRoutes } from './functionalities/users/users.router.config'
+import { ExpensesRoutes } from './functionalities/expenses/exenses.routers.config';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -15,6 +16,7 @@ app.use(express.json());
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
 routes.push(new UsersRoutes(app));
+routes.push(new ExpensesRoutes(app));
 
 // this is a simple route to make sure everything is working properly
 const runningMessage = `Server running at http://localhost:${port}`;
