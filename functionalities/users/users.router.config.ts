@@ -17,6 +17,7 @@ export class UsersRoutes extends CommonRoutesConfig {
 
         this.app.param('userId', usersMiddleware.extractUserId);
         this.app.route('/users/:userId')
+            .all(usersMiddleware.validateUserId)
             .get(usersController.getUserById)
             .delete(usersController.removeUserById);
 

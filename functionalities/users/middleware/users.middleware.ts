@@ -1,6 +1,7 @@
 import express from 'express'
 import { validate } from 'class-validator';
 import { UserModel } from '../models/user.model';
+import usersService from '../services/users.service';
 
 class UsersMiddleware {
     async validateBodyFields(
@@ -16,6 +17,19 @@ class UsersMiddleware {
             else
                 next();
         })  
+    }
+
+    async validateUserId(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        const user = await usersService.readById(req.body.id)
+
+        if(user)
+            next();
+        else
+            res.status(404).send(`The user ${req.body.id} does not exists`);
     }
 
     async extractUserId(
