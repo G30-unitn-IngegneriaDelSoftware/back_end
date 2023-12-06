@@ -2,6 +2,7 @@ import mongooseService from "../../common/services/mongoose.service";
 import shortid from "shortid";
 import { IMessage } from "../model/bulletin.interface";
 import MessagesModel from "../model/bulletin.model";
+import { Schema } from "mongoose";
 
 class MessagesDao {
     Schema = mongooseService.getMongoose().Schema;
@@ -17,6 +18,10 @@ class MessagesDao {
     }, {id: false});
 
     Message = mongooseService.getMongoose().model("messages", this.messageSchema)
+
+    getSchema(){
+        return this.Message;
+    }
 
     async listMessages(limit = 25, page = 0){
         return this.Message.find()

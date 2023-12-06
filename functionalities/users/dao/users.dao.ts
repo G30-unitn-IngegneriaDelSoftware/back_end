@@ -21,6 +21,10 @@ class UsersDao {
 
     User = mongooseService.getMongoose().model('users', this.userSchema);
 
+    getSchema(){
+        return this.User;
+    }
+
     //GET requests
     async getUsers(limit = 25, page = 0){
         return this.User.find()

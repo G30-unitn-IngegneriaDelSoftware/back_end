@@ -17,6 +17,10 @@ class ShiftsDao {
 
     Shift = mongooseService.getMongoose().model('shifts', this.shiftSchema);
 
+    getSchema() {
+        return this.Shift;
+    }
+
     //GET requests
     async getShifts(limit = 25, page = 0){
         return this.Shift.find()

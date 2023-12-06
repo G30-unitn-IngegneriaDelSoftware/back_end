@@ -32,6 +32,27 @@ class ApartmentsController{
         await apartmentService.deleteById(req.body.id);
         res.status(204).send();
     }
+
+    //External Inputs
+    async getApartmentMessages(req: express.Request, res: express.Response){
+        const messages = await apartmentService.getMessages(req.body.id);
+        res.status(200).send(messages);
+    }
+
+    async getApartmentMembers(req: express.Request, res: express.Response){
+        const messages = await apartmentService.getMembers(req.body.id);
+        res.status(200).send(messages);
+    }
+
+    async getApartmentShifts(req: express.Request, res: express.Response){
+        const messages = await apartmentService.getShifts(req.body.id);
+        res.status(200).send(messages);
+    }
+
+    async getApartmentExpenses(req: express.Request, res: express.Response){
+        const messages = await apartmentService.getExpenses(req.body.id);
+        res.status(200).send(messages);
+    }
 }
 
 export default new ApartmentsController();

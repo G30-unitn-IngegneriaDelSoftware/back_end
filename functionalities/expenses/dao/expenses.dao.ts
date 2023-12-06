@@ -19,6 +19,10 @@ class ExpensesDao {
 
     Expense = mongooseService.getMongoose().model('expenses', this.expenseSchema);
 
+    getSchema(){
+        return this.Expense;
+    }
+
     //GET requests
     async getExpenses(limit = 25, page = 0){
         return this.Expense.find()

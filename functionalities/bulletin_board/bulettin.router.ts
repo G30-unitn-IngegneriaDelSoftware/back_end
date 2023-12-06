@@ -15,7 +15,7 @@ export class MessagesRoutes extends CommonRoutesConfig{
                 .post(messagesMiddleware.validateMessageBody,
                     messagesController.postMessage);
 
-        this.app.param(':messageId', messagesMiddleware.extractMessageId);
+        this.app.param('messageId', messagesMiddleware.extractMessageId);
 
         this.app.route('/messages/:messageId')
                     .all(messagesMiddleware.validateMessageId)

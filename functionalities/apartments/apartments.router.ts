@@ -15,7 +15,7 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
                 .post(apartmentsMiddleware.validateApartmentBody,
                     apartmentsController.post);
 
-        this.app.param('/apartments/:apartmentId', apartmentsMiddleware.extractApartmentId);
+        this.app.param('apartmentId', apartmentsMiddleware.extractApartmentId);
         this.app.route('/apartments/:apartmentId')
                 .all(apartmentsMiddleware.validateApartmentId)
                 .get(apartmentsController.getApartmentById)
@@ -28,6 +28,21 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
 
         this.app.patch('/apartments/:apartmentId', apartmentsController.patch);
 
+        this.app.route('/apartments/:apartmentId/messages')
+                .get(apartmentsController.getApartmentMessages);
+
+        this.app.route('/apartments/:apartmentId/expenses')
+                .get(apartmentsController.getApartmentExpenses);
+        
+        this.app.route('/apartments/:apartmentId/shifts')
+                .get(apartmentsController.getApartmentShifts);
+
+        this.app.route('/apartments/:apartmentId/members')
+                .get(apartmentsController.getApartmentMembers);
+
+        // this.app.route('/apartments/:apartmentId/todos')
+        //         .get(apartmentsController.getApartmentTodos);
+        
         return this.app;
     }
 }

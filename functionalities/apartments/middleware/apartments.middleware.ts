@@ -38,7 +38,7 @@ class ApartmentsMiddleware{
         res: express.Response,
         next: express.NextFunction
     ){
-        req.body.id = req.params.id;
+        req.body.id = req.params.apartmentId;
         next();
     }
 }
