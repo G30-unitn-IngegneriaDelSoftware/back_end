@@ -1,0 +1,31 @@
+import { CRUD } from "../../common/interfaces/crud.interface";
+
+import apartmentsDao from "../dao/apartments.dao";
+
+class ApartmentsServece implements CRUD {
+    async list(limit: number, page: number){
+        return apartmentsDao.listApartments(limit, page);
+    }
+
+    async readById(id: string){
+        return apartmentsDao.getApartmentById(id);
+    }
+
+    async create(resource: any){
+        return apartmentsDao.postApartment(resource);
+    }
+
+    async putById(id: string, resource: any): Promise<any>{
+        return apartmentsDao.updateApartmentById(id, resource);
+    }
+
+    async patchById(id: string, resource: any): Promise<any>{
+        return apartmentsDao.updateApartmentById(id, resource);
+    }
+
+    async deleteById(id: string){
+        return apartmentsDao.deleteById(id);
+    }
+}
+
+export default new ApartmentsServece();

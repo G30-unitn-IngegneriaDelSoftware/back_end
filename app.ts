@@ -4,6 +4,7 @@ import * as http from 'http'
 import { CommonRoutesConfig } from './functionalities/common/common.routes.config'
 import { UsersRoutes } from './functionalities/users/users.router.config'
 import { ExpensesRoutes } from './functionalities/expenses/exenses.routers.config';
+import { ApartmentsRoutes } from './functionalities/apartments/apartments.router';
 import ShiftsRoutes from './functionalities/shifts/shifts.router.config';
 
 const app: express.Application = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 routes.push(new UsersRoutes(app));
 routes.push(new ExpensesRoutes(app));
 routes.push(new ShiftsRoutes(app));
+routes.push(new ApartmentsRoutes(app));
 
 // this is a simple route to make sure everything is working properly
 const runningMessage = `Server running at http://localhost:${port}`;
