@@ -27,9 +27,10 @@ class ApartmentsMiddleware{
     ){
         const apartment = await apartmentService.readById(req.body.id);
 
-        if(apartment)
+        if(apartment){
+            console.log(apartment);
             next();
-        else
+        }else
             res.status(404).send(`Apartment ${req.body.id} not found`);
     }
 

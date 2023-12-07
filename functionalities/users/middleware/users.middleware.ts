@@ -25,7 +25,8 @@ class UsersMiddleware {
         next: express.NextFunction
     ){
         const user = await usersService.readById(req.body.id)
-
+        
+        console.log(user)
         if(user)
             next();
         else

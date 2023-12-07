@@ -28,7 +28,7 @@ export class MessagesRoutes extends CommonRoutesConfig{
                         messagesController.putById
                     ]);
 
-        this.app.patch('/messages/:messagsId', messagesController.patchById);
+        this.app.patch('/messages/:messageId', messagesController.patchById);
 
         return this.app;
     }

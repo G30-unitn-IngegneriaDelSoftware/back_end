@@ -35,61 +35,61 @@ class ApartmentsDao{
     }
 
     async getApartmentById(id: string){
-        return this.Apartment.find({_id: id});
+        return this.Apartment.findOne({_id: id}).exec();
     }
 
     //GET elements linked to apartment
     async getApartmentMessages(id: string){
-        const apartment = await this.Apartment.findOne({ _id: id });
+        const apartment = await this.Apartment.findOne({ _id: id }).exec();
         
         if(apartment){
             const messagesIDs = apartment.messages;
             
             const Messages = messagesDao.getSchema();
 
-            return Messages.find({ _id: {"$in": messagesIDs }});
+            return Messages.find({ _id: {"$in": messagesIDs }}).exec();
         }
 
         return [];
     }
 
     async getApartmentMembers(id: string){
-        const apartment = await this.Apartment.findOne({ _id: id});
+        const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
         if(apartment){
             const membersIDs = apartment.users;
 
             const Users = usersDao.getSchema();
 
-            return Users.find({ _id: {"$in": membersIDs } });
+            return Users.find({ _id: {"$in": membersIDs } }).exec();
         }
 
         return [];
     }
 
     async getApartmentShifts(id: string){
-        const apartment = await this.Apartment.findOne({ _id: id});
+        const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
         if(apartment){
             const shiftsIDs = apartment.users;
 
             const Shifts = shiftsDao.getSchema();
 
-            return Shifts.find({ _id: {"$in": shiftsIDs } });
+            return Shifts.find({ _id: {"$in": shiftsIDs } }).exec();
         }
 
         return [];
     }
 
     async getApartmentExpenses(id: string){
-        const apartment = await this.Apartment.findOne({ _id: id});
+        const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
         if(apartment){
             const expensesIDs = apartment.users;
 
             const Expenses = expensesDao.getSchema();
 
-            return Expenses.find({ _id: {"$in": expensesIDs } });
+            return Expenses.find({ _id: {"$in": expensesIDs } }).exec();
         }
 
         return [];
