@@ -41,6 +41,15 @@ class MessagesMiddleware {
         req.body.id = req.params.messageId;
         next();
     }
+
+    async extractApartmentId(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        req.body.apartmentId = req.params.apartmentId;
+        next();
+    }
 }
 
 export default new MessagesMiddleware();

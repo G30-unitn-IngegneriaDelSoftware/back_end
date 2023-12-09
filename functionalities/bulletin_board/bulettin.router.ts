@@ -3,6 +3,8 @@ import express from 'express'
 import messagesController from './controller/bulletin.controller'
 import messagesMiddleware from './middleware/bulletin.middleware'
 import { CommonRoutesConfig } from '../common/common.routes.config'
+import apartmentsMiddleware from '../apartments/middleware/apartments.middleware';
+import apartmentsController from '../apartments/controllers/apartments.controller';
 
 export class MessagesRoutes extends CommonRoutesConfig{
     constructor(app: express.Application){
@@ -29,6 +31,12 @@ export class MessagesRoutes extends CommonRoutesConfig{
                     ]);
 
         this.app.patch('/messages/:messageId', messagesController.patchById);
+
+        this.app.param('apartmentId', messagesMiddleware.extractApartmentId);
+        this.app.route('/apartments/messages/:apartmentId')
+                .all(apartmentsMiddleware.validateApartmentId)
+                .get(apartmentsController.getApartmentMessages)
+                .post(messagesController.postApartmentMessage)
 
         return this.app;
     }
