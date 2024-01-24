@@ -71,7 +71,7 @@ class ApartmentsDao{
         const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
         if(apartment){
-            const shiftsIDs = apartment.users;
+            const shiftsIDs = apartment.shifts;
 
             const Shifts = shiftsDao.getSchema();
 
@@ -85,13 +85,14 @@ class ApartmentsDao{
         const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
         if(apartment){
-            const expensesIDs = apartment.users;
+            const expensesIDs = apartment.expenses;
 
             const Expenses = expensesDao.getSchema();
 
             return Expenses.find({ _id: {"$in": expensesIDs } }).exec();
         }
 
+        console.log("Empty");
         return [];
     }
 

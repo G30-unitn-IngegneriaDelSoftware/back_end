@@ -3,6 +3,7 @@ import express from 'express'
 import MessagesModel from '../model/bulletin.model'
 import messagesDao from '../dao/bulletin.dao'
 import { validate } from 'class-validator';
+import apartmentService from '../../apartments/services/apartment.service';
 
 class MessagesMiddleware {
     async validateMessageBody(
@@ -18,6 +19,31 @@ class MessagesMiddleware {
             else
                 next();
         });
+    }
+
+    async validateMessageAuthor(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        const apartment = await apartmentService.readById(req.body.apartmentId);
+
+        if(apartment){
+            const usersIds = apartment.users;
+            let found = false;
+
+            usersIds.forEach(userId => {
+                if(userId == req.body.author)
+                    found = true
+            });
+
+            if(found)
+                next()
+            else
+                res.status(400).send(`The users ${req.body.author} is not inside apartment`)
+        }
+
+        res.status(400).send(`The apartment ${req.body.apartmentId} has not been found`);
     }
 
     async validateMessageId(

@@ -26,9 +26,8 @@ class ApartmentsMiddleware{
         next: express.NextFunction
     ){
         const apartment = await apartmentService.readById(req.body.id);
-
+        
         if(apartment){
-            console.log(apartment);
             next();
         }else
             res.status(404).send(`Apartment ${req.body.id} not found`);

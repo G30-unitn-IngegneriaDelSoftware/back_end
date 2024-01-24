@@ -57,7 +57,11 @@ class MessagesDao {
     }
 
     async deleteById(messageId: string){
-        this.Message.findOneAndDelete({ _id: messageId }).exec();
+        this.Message.deleteMany({
+            $or: [
+                { _id: messageId },
+                { commentOf: messageId }            
+            ]}).exec();
     }
 }
 

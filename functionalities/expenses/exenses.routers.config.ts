@@ -3,6 +3,8 @@ import express from 'express'
 import { CommonRoutesConfig } from '../common/common.routes.config'
 import expensesMiddleware from './middleware/expenses.middleware';
 import expensesController from './controllers/expenses.controller';
+import apartmentsMiddleware from '../apartments/middleware/apartments.middleware';
+import apartmentsController from '../apartments/controllers/apartments.controller';
 
 export class ExpensesRoutes extends CommonRoutesConfig {
     constructor(app: express.Application){
@@ -29,6 +31,15 @@ export class ExpensesRoutes extends CommonRoutesConfig {
         );
 
         this.app.patch('/expenses/:expenseId', expensesController.patchExpenseById);
+
+        this.app.param('apartmentId', expensesMiddleware.extractApartmentId);
+        this.app.route('/apartments/expenses/:apartmentId')
+                .all(apartmentsMiddleware.validateApartmentId)
+                .get(apartmentsController.getApartmentExpenses)
+                .post(
+                    expensesMiddleware.validateExpenseRequestBody,
+                    expensesMiddleware.validateCreditorAndDebitors,
+                    expensesController.postApartmentExpense);
 
         return this.app;
     }

@@ -40,18 +40,18 @@ class ApartmentsController{
     }
 
     async getApartmentMembers(req: express.Request, res: express.Response){
-        const messages = await apartmentService.getMembers(req.body.id);
-        res.status(200).send(messages);
+        const members = await apartmentService.getMembers(req.body.id);
+        res.status(200).send(members);
     }
 
     async getApartmentShifts(req: express.Request, res: express.Response){
-        const messages = await apartmentService.getShifts(req.body.id);
-        res.status(200).send(messages);
+        const shifts = await apartmentService.getShifts(req.body.id);
+        res.status(200).send(shifts);
     }
 
     async getApartmentExpenses(req: express.Request, res: express.Response){
-        const messages = await apartmentService.getExpenses(req.body.id);
-        res.status(200).send(messages);
+        const expenses = await apartmentService.getExpenses(req.body.id);
+        res.status(200).send(expenses);
     }
 }
 

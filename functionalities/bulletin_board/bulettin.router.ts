@@ -36,7 +36,10 @@ export class MessagesRoutes extends CommonRoutesConfig{
         this.app.route('/apartments/messages/:apartmentId')
                 .all(apartmentsMiddleware.validateApartmentId)
                 .get(apartmentsController.getApartmentMessages)
-                .post(messagesController.postApartmentMessage)
+                .post(
+                    messagesMiddleware.validateMessageBody,
+                    messagesMiddleware.validateMessageAuthor,
+                    messagesController.postApartmentMessage);
 
         return this.app;
     }

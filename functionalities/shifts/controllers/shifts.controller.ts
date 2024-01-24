@@ -1,5 +1,6 @@
 import express from 'express'
 import shiftsService from '../services/shifts.service'
+import apartmentService from '../../apartments/services/apartment.service';
 
 class ShiftsController{
     async listShifts(req: express.Request, res: express.Response){
@@ -31,6 +32,20 @@ class ShiftsController{
     async deleteById(req: express.Request, res: express.Response){
         await shiftsService.deleteById(req.body.id);
         res.status(204).send();
+    }
+
+    async postApartmentShift(req: express.Request, res: express.Response){
+        const shiftId = await shiftsService.create(req.body);
+
+        const apartment = await apartmentService.readById(req.body.apartmentId);
+
+        if(apartment){
+            const shiftIDs = apartment.shifts;
+
+            await apartmentService.patchById(req.body.apartmentId, { shifts: [...shiftIDs, shiftId]});
+        }
+
+        res.status(204).send({ _id: shiftId });
     }
 }
 
