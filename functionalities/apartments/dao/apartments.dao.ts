@@ -4,9 +4,7 @@ import shortid from "shortid";
 import { IApartment } from "../models/apartment.interface";
 
 //External Daos
-import messagesDao from "../../bulletin_board/dao/bulletin.dao";
 import usersDao from "../../users/dao/users.dao";
-import shiftsDao from "../../shifts/dao/shifts.dao";
 import expensesDao from "../../expenses/dao/expenses.dao";
 
 class ApartmentsDao{
@@ -18,10 +16,7 @@ class ApartmentsDao{
         description: String,
         admin: String,
         users: [String],
-        expenses: [String],
-        shifts: [String],
-        todos: [String],
-        messages: [String]
+        expenses: [String]
     }, {id: false});
 
     Apartment = mongooseService.getMongoose().model('apartments', this.apartmentSchema);
@@ -38,21 +33,6 @@ class ApartmentsDao{
         return this.Apartment.findOne({_id: id}).exec();
     }
 
-    //GET elements linked to apartment
-    async getApartmentMessages(id: string){
-        const apartment = await this.Apartment.findOne({ _id: id }).exec();
-        
-        if(apartment){
-            const messagesIDs = apartment.messages;
-            
-            const Messages = messagesDao.getSchema();
-
-            return Messages.find({ _id: {"$in": messagesIDs }}).exec();
-        }
-
-        return [];
-    }
-
     async getApartmentMembers(id: string){
         const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
@@ -64,20 +44,7 @@ class ApartmentsDao{
             return Users.find({ _id: {"$in": membersIDs } }).exec();
         }
 
-        return [];
-    }
-
-    async getApartmentShifts(id: string){
-        const apartment = await this.Apartment.findOne({ _id: id}).exec();
-
-        if(apartment){
-            const shiftsIDs = apartment.shifts;
-
-            const Shifts = shiftsDao.getSchema();
-
-            return Shifts.find({ _id: {"$in": shiftsIDs } }).exec();
-        }
-
+        console.log("Empty");
         return [];
     }
 

@@ -12,12 +12,6 @@ export class ApartmentModel implements IApartment {
     users: string[];
     @IsNotEmpty()
     expenses: string[];
-    @IsNotEmpty()
-    shifts: string[];
-    @IsNotEmpty()
-    todos: string[];
-    @IsNotEmpty()
-    messages: string[];
 
     constructor(data: IApartment | Partial<IApartment>){
         this.name = data.name || '';
@@ -25,8 +19,5 @@ export class ApartmentModel implements IApartment {
         this.admin = data.admin || '';
         this.users = data.users || [];
         this.expenses = data.expenses || [];
-        this.shifts = data.shifts || [];
-        this.todos = data.todos || [];
-        this.messages = data.messages || [];
     }
 }

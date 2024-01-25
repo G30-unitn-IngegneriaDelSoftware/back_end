@@ -28,29 +28,15 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
 
         this.app.patch('/apartments/:apartmentId', apartmentsController.patch);
 
-        this.app.route('/apartments/:apartmentId/messages')
-                .get(
-                apartmentsMiddleware.validateApartmentId,
-                apartmentsController.getApartmentMessages);
-
         this.app.route('/apartments/:apartmentId/expenses')
                 .get(
                 apartmentsMiddleware.validateApartmentId,
                 apartmentsController.getApartmentExpenses);
-        
-        this.app.route('/apartments/:apartmentId/shifts')
-                .get(
-                apartmentsMiddleware.validateApartmentId,
-                apartmentsController.getApartmentShifts);
 
         this.app.route('/apartments/:apartmentId/members')
                 .get(
                 apartmentsMiddleware.validateApartmentId,
                 apartmentsController.getApartmentMembers);
-
-        //TODO
-        // this.app.route('/apartments/:apartmentId/todos')
-        //         .get(apartmentsController.getApartmentTodos);
         
         return this.app;
     }

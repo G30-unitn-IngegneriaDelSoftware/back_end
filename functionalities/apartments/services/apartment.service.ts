@@ -26,17 +26,9 @@ class ApartmentsServece implements CRUD {
     async deleteById(id: string){
         return apartmentsDao.deleteById(id);
     }
-
-    async getMessages(id: string){
-        return apartmentsDao.getApartmentMessages(id);
-    }
     
     async getMembers(id: string){
         return apartmentsDao.getApartmentMembers(id);
-    }
-
-    async getShifts(id: string){
-        return apartmentsDao.getApartmentShifts(id);
     }
 
     async getExpenses(id: string){

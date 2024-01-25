@@ -4,7 +4,4 @@ export interface IApartment {
     admin: string;
     users: string[];
     expenses: string[];
-    shifts: string[];
-    todos: string[];
-    messages: string[];
 }

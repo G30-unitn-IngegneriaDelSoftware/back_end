@@ -33,20 +33,9 @@ class ApartmentsController{
         res.status(204).send();
     }
 
-    //External Inputs
-    async getApartmentMessages(req: express.Request, res: express.Response){
-        const messages = await apartmentService.getMessages(req.body.id);
-        res.status(200).send(messages);
-    }
-
     async getApartmentMembers(req: express.Request, res: express.Response){
         const members = await apartmentService.getMembers(req.body.id);
         res.status(200).send(members);
-    }
-
-    async getApartmentShifts(req: express.Request, res: express.Response){
-        const shifts = await apartmentService.getShifts(req.body.id);
-        res.status(200).send(shifts);
     }
 
     async getApartmentExpenses(req: express.Request, res: express.Response){
