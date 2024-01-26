@@ -1,7 +1,20 @@
 import express from 'express'
 import usersService from '../services/users.service'
+import usersDao from '../dao/users.dao'
 
 class UsersController{
+    async login(req: express.Request, res: express.Response){
+        const response = await usersDao.login(req.body.username, req.body.password);
+
+        if(response == -1){
+            res.status(401).send("Invalid authentication credentials");
+        }else{
+            const cookieParser = require('cookie-parser');
+            res.cookie('session', response);
+            res.status(200).send(response);
+        }
+    }
+
     async listUsers(req: express.Request, res: express.Response){
         const users = await usersService.list(100, 0);
         res.status(200).send(users);

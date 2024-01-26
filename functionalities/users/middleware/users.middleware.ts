@@ -33,6 +33,30 @@ class UsersMiddleware {
             res.status(404).send(`The user ${req.body.id} does not exists`);
     }
 
+    async validateLoginData(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        if(req.body.username && req.body.password)
+            next();
+        else
+            res.status(400).send("Username or password missing");
+    }
+
+    async validateUserSession(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        const sessionId = req.cookies.session;
+        
+        if(sessionId)
+            next();
+        else
+            res.status(401).send('Unauthorized access');
+    }
+
     async extractUserId(
         req: express.Request,
         res: express.Response,

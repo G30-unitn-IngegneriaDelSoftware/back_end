@@ -5,6 +5,7 @@ import expensesMiddleware from './middleware/expenses.middleware';
 import expensesController from './controllers/expenses.controller';
 import apartmentsMiddleware from '../apartments/middleware/apartments.middleware';
 import apartmentsController from '../apartments/controllers/apartments.controller';
+import usersMiddleware from '../users/middleware/users.middleware';
 
 export class ExpensesRoutes extends CommonRoutesConfig {
     constructor(app: express.Application){
@@ -13,6 +14,7 @@ export class ExpensesRoutes extends CommonRoutesConfig {
 
     configureRoutes(): express.Application {
         this.app.route('/expenses')
+            .all(usersMiddleware.validateUserSession)
             .get(expensesController.listExpenses)
             .post(
                 expensesMiddleware.validateExpenseRequestBody,
@@ -20,21 +22,27 @@ export class ExpensesRoutes extends CommonRoutesConfig {
 
         this.app.param('expenseId', expensesMiddleware.extractExpenseId);
         this.app.route('/expenses/:expenseId')
+                .all(usersMiddleware.validateUserSession)
                 .get(expensesController.getById)
                 .delete(expensesController.removeById);
 
         this.app.put('/expenses/:expenseId',
             [
+                usersMiddleware.validateUserSession,
                 expensesMiddleware.validateExpenseRequestBody,
                 expensesController.putExpenseById
             ]
         );
 
-        this.app.patch('/expenses/:expenseId', expensesController.patchExpenseById);
+        this.app.patch('/expenses/:expenseId', 
+                        usersMiddleware.validateUserSession,
+                        expensesController.patchExpenseById);
 
         this.app.param('apartmentId', expensesMiddleware.extractApartmentId);
         this.app.route('/apartments/expenses/:apartmentId')
-                .all(apartmentsMiddleware.validateApartmentId)
+                .all(
+                    usersMiddleware.validateUserSession,
+                    apartmentsMiddleware.validateApartmentId)
                 .get(apartmentsController.getApartmentExpenses)
                 .post(
                     expensesMiddleware.validateExpenseRequestBody,

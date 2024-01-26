@@ -1,5 +1,6 @@
 import express from 'express'
 import * as http from 'http'
+import cookieParser from 'cookie-parser'
 
 import { CommonRoutesConfig } from './functionalities/common/common.routes.config'
 import { UsersRoutes } from './functionalities/users/users.router.config'
@@ -13,6 +14,7 @@ const routes: Array<CommonRoutesConfig> = [];
 
 // here we are adding middleware to parse all incoming requests as JSON 
 app.use(express.json());
+app.use(cookieParser())
 
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
