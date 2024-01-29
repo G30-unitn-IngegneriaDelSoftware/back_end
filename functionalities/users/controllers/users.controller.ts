@@ -1,18 +1,22 @@
 import express from 'express'
 import usersService from '../services/users.service'
 import usersDao from '../dao/users.dao'
+import sessionsDao from '../dao/sessions.dao';
 
 class UsersController{
     async login(req: express.Request, res: express.Response){
         const response = await usersDao.login(req.body.username, req.body.password);
-
+        
         if(response == -1){
             res.status(401).send("Invalid authentication credentials");
         }else{
-            const cookieParser = require('cookie-parser');
-            res.cookie('session', response);
+            res.cookie('session', response, {maxAge: 60 * 60 * 1000});
             res.status(200).send(response);
         }
+    }
+
+    async logout(req: express.Request, res: express.Response){
+        await sessionsDao.clearUserSessions(req.body.username);
     }
 
     async listUsers(req: express.Request, res: express.Response){

@@ -36,10 +36,17 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
                             apartmentsController.patch);
 
         this.app.route('/apartments/:apartmentId/expenses')
+                .all(usersMiddleware.validateUserSession)
+                .get(
+                    apartmentsMiddleware.validateApartmentId,
+                    apartmentsController.getApartmentExpenses)
+                .post(apartmentsController.addExpenseToApartment);
+
+        this.app.route('/apartments/:apartmentId/debits')
                 .get(
                     usersMiddleware.validateUserSession,
                     apartmentsMiddleware.validateApartmentId,
-                    apartmentsController.getApartmentExpenses);
+                    apartmentsController.getDebits);
 
         this.app.route('/apartments/:apartmentId/members')
                 .get(

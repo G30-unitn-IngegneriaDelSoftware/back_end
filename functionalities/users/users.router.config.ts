@@ -15,7 +15,13 @@ export class UsersRoutes extends CommonRoutesConfig {
                 usersController.login
             );
 
-        this.app.route("/register")
+        this.app.route("/logout")
+            .post(
+                usersMiddleware.validateLogoutData,
+                usersController.logout
+            );
+        
+            this.app.route("/register")
             .post(
                 usersMiddleware.validateBodyFields,
                 usersController.postUser);

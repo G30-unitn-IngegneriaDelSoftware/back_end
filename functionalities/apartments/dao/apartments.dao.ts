@@ -6,6 +6,8 @@ import { IApartment } from "../models/apartment.interface";
 //External Daos
 import usersDao from "../../users/dao/users.dao";
 import expensesDao from "../../expenses/dao/expenses.dao";
+import { IExpense } from "../../expenses/model/expenses.interface";
+import expensesController from "../../expenses/controllers/expenses.controller";
 
 class ApartmentsDao{
     Shema = mongooseService.getMongoose().Schema;
@@ -83,6 +85,22 @@ class ApartmentsDao{
             {new: true}
         ).exec();
     }
+
+    async addExpenseToApartment(apartmentId: string, expenseFields: IExpense){
+        const expenseId = await expensesDao.addExpense(expenseFields);
+        this.Apartment.findOneAndUpdate(
+            {_id: apartmentId},
+            { $push: {"expenses": expenseId }}
+        ).exec();
+        return expenseId;
+    }
+
+    async addMemberToApartment(apartmentId: string, userId: string){
+        this.Apartment.findOneAndUpdate(
+            {_id: apartmentId},
+            { $push: {users: userId}}
+        ).exec();
+    } 
 
     //DELETE
     async deleteById(apartmentId: string){

@@ -2,6 +2,7 @@ import express from 'express'
 import { validate } from 'class-validator';
 import { UserModel } from '../models/user.model';
 import usersService from '../services/users.service';
+import sessionsDao from '../dao/sessions.dao';
 
 class UsersMiddleware {
     async validateBodyFields(
@@ -44,16 +45,32 @@ class UsersMiddleware {
             res.status(400).send("Username or password missing");
     }
 
+    async validateLogoutData(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        if(req.body.username)
+            next();
+        else
+            res.status(400).send("Username missing");
+    }
+
     async validateUserSession(
         req: express.Request,
         res: express.Response,
         next: express.NextFunction
     ){
-        const sessionId = req.cookies.session;
+        const userSessionId = req.cookies.session;
         
-        if(sessionId)
-            next();
-        else
+        if(userSessionId){
+            const sessionId = await sessionsDao.getUserSession(userSessionId);
+            
+            if(sessionId)
+                next();
+            else
+                res.status(401).send('Unauthorized access');
+        }else
             res.status(401).send('Unauthorized access');
     }
 

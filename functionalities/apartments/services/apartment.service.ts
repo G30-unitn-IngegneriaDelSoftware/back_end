@@ -34,6 +34,14 @@ class ApartmentsServece implements CRUD {
     async getExpenses(id: string){
         return apartmentsDao.getApartmentExpenses(id);
     }
+
+    async addExpense(id: string, resource: any){
+        return apartmentsDao.addExpenseToApartment(id, resource);
+    }
+
+    async addMember(id: string, memberId: any){
+        return apartmentsDao.addMemberToApartment(id, memberId);
+    }
 }
 
 export default new ApartmentsServece();

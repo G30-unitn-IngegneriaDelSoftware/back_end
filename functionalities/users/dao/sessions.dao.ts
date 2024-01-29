@@ -14,9 +14,9 @@ class SessionDao{
 
     Session = mongooseService.getMongoose().model('sessions', this.sessionSchema);
 
-    async getUserSession(userID: string){
+    async getUserSession(sessionId: string){
         await this.clearExpiredsessions();
-        return this.Session.findOne({userId: userID}).exec();
+        return this.Session.findOne({sessionId: sessionId}).exec();
     }
 
     async createSession(userID: string){
