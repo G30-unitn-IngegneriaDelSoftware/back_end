@@ -16,9 +16,6 @@ export class ExpensesRoutes extends CommonRoutesConfig {
         this.app.route('/expenses')
             .all(usersMiddleware.validateUserSession)
             .get(expensesController.listExpenses)
-            .post(
-                expensesMiddleware.validateExpenseRequestBody,
-                expensesController.postExpense);
 
         this.app.param('expenseId', expensesMiddleware.extractExpenseId);
         this.app.route('/expenses/:expenseId')
@@ -37,17 +34,6 @@ export class ExpensesRoutes extends CommonRoutesConfig {
         this.app.patch('/expenses/:expenseId', 
                         usersMiddleware.validateUserSession,
                         expensesController.patchExpenseById);
-
-        this.app.param('apartmentId', expensesMiddleware.extractApartmentId);
-        this.app.route('/apartments/expenses/:apartmentId')
-                .all(
-                    usersMiddleware.validateUserSession,
-                    apartmentsMiddleware.validateApartmentId)
-                .get(apartmentsController.getApartmentExpenses)
-                .post(
-                    expensesMiddleware.validateExpenseRequestBody,
-                    expensesMiddleware.validateCreditorAndDebitors,
-                    expensesController.postApartmentExpense);
 
         return this.app;
     }

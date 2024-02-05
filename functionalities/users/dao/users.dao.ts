@@ -49,6 +49,10 @@ class UsersDao {
     async getUserByid(userId: string){
         return this.User.findOne({_id: userId}).select('-password -salt').exec();
     }
+
+    async getUserByUsername(username: string){
+        return this.User.findOne({username: username}).select('-password -salt').exec();
+    }
     
     //POST requests
     async addUser(userFields: IUser){

@@ -15,9 +15,25 @@ class UsersMiddleware {
         validate(userBody).then(errors => {
             if(errors.length > 0)
                 res.status(400).send("The format of the user is not correct");
-            else
+            else{
                 next();
+            }
         })  
+    }
+
+    async validateUsernameDoesntExists(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        const userBody: UserModel = new UserModel(req.body);
+        const username = userBody.username;
+        const user = usersService.readByUsername(username);
+
+        if(!user)
+            next();
+        else
+            res.status(409).send("Username already in use");
     }
 
     async validateUserId(
@@ -27,7 +43,6 @@ class UsersMiddleware {
     ){
         const user = await usersService.readById(req.body.id)
         
-        console.log(user)
         if(user)
             next();
         else

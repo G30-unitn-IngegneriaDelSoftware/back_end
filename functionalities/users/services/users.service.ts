@@ -10,6 +10,10 @@ class UsersService implements CRUD{
         return usersDao.getUserByid(id);
     }
 
+    async readByUsername(username: string){
+        return usersDao.getUserByUsername(username);
+    }
+
     async create(resource: any){
         return usersDao.addUser(resource);
     }

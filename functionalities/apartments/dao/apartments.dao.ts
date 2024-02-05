@@ -7,7 +7,7 @@ import { IApartment } from "../models/apartment.interface";
 import usersDao from "../../users/dao/users.dao";
 import expensesDao from "../../expenses/dao/expenses.dao";
 import { IExpense } from "../../expenses/model/expenses.interface";
-import expensesController from "../../expenses/controllers/expenses.controller";
+import usersService from "../../users/services/users.service";
 
 class ApartmentsDao{
     Shema = mongooseService.getMongoose().Schema;
@@ -26,6 +26,17 @@ class ApartmentsDao{
     //GET Requests
     async listApartments(limit = 25, page = 0){
         return this.Apartment.find()
+                    .limit(limit)
+                    .skip(limit * page)
+                    .exec();
+    }
+
+    async listUserApartments(limit = 25, page = 0, username: string){
+        const userId = usersService.readByUsername(username);
+
+        return this.Apartment.find({
+                        members: { $elemMatch: { $eq: userId}}
+                    })
                     .limit(limit)
                     .skip(limit * page)
                     .exec();

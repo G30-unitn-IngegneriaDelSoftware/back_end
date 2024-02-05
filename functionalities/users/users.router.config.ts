@@ -21,9 +21,10 @@ export class UsersRoutes extends CommonRoutesConfig {
                 usersController.logout
             );
         
-            this.app.route("/register")
+        this.app.route("/register")
             .post(
                 usersMiddleware.validateBodyFields,
+                usersMiddleware.validateUsernameDoesntExists,
                 usersController.postUser);
 
         this.app.route('/users')
@@ -45,7 +46,10 @@ export class UsersRoutes extends CommonRoutesConfig {
                 usersController.putUserById
             ]);
 
-        this.app.patch('/users/:userId', usersController.patchUserById);
+        this.app.patch('/users/:userId', [
+                usersMiddleware.validateUserSession,
+                usersController.patchUserById
+            ]);
 
         return this.app;
     }

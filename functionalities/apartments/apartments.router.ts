@@ -32,8 +32,8 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
         ]);
 
         this.app.patch('/apartments/:apartmentId', 
-                            usersMiddleware.validateUserSession,
-                            apartmentsController.patch);
+                    usersMiddleware.validateUserSession,
+                    apartmentsController.patch);
 
         this.app.route('/apartments/:apartmentId/expenses')
                 .all(usersMiddleware.validateUserSession)
@@ -54,6 +54,10 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
                     apartmentsMiddleware.validateApartmentId,
                     apartmentsController.getApartmentMembers);
         
+        //TODO: delete member and expense endpoints
+        //TODO: validateApartmentExpenseId middleware function
+        //TODO: validateIsAdmin middleware function
+
         return this.app;
     }
 }

@@ -11,12 +11,13 @@ class UsersController{
             res.status(401).send("Invalid authentication credentials");
         }else{
             res.cookie('session', response, {maxAge: 60 * 60 * 1000});
-            res.status(200).send(response);
+            res.status(204).send();
         }
     }
 
     async logout(req: express.Request, res: express.Response){
         await sessionsDao.clearUserSessions(req.body.username);
+        res.status(204).send();
     }
 
     async listUsers(req: express.Request, res: express.Response){

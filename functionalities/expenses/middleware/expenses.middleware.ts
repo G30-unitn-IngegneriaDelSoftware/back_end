@@ -2,6 +2,8 @@ import express from "express";
 import { validate } from "class-validator";
 import { ExpenseModel } from "../model/expenses.model";
 import apartmentService from "../../apartments/services/apartment.service";
+import expensesDao from "../dao/expenses.dao";
+import expensesService from "../services/expenses.service";
 
 class ExpensesMiddleWare {
     async validateExpenseRequestBody(
@@ -79,6 +81,19 @@ class ExpensesMiddleWare {
     ){
         req.body.id = req.params.expenseId;
         next();
+    }
+
+    async validateExpenseId(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        const expense = await expensesService.readById(req.body.id);
+
+        if(expense)
+            next();
+        else
+            res.status(404).send("Espense not found");
     }
 }
 

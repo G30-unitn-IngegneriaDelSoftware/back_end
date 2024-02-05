@@ -10,6 +10,12 @@ class ApartmentsController{
         res.status(200).send(apartments);
     }
 
+    async getUserApartments(req: express.Request, res: express.Response){
+        const username = req.cookies.session;
+        const apartments = await apartmentService.listUserApartments(100, 0, username);
+        res.status(200).send(apartments);
+    }
+
     async getApartmentById(req: express.Request, res: express.Response){
         const apartment = await apartmentService.readById(req.body.id);
         res.status(200).send(apartment);
@@ -50,6 +56,7 @@ class ApartmentsController{
         res.status(200).send(expenseId);
     }
 
+    //TODO: validate userID
     async addMemberToApartment(req: express.Request, res: express.Response){
         await apartmentService.addMember(req.body.id, req.body);
         res.status(200).send("Member added to apartment");

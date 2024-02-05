@@ -7,6 +7,10 @@ class ApartmentsServece implements CRUD {
         return apartmentsDao.listApartments(limit, page);
     }
 
+    async listUserApartments(limit: number, page: number, username: string){
+        return apartmentsDao.listUserApartments(limit, page, username);
+    }
+
     async readById(id: string){
         return apartmentsDao.getApartmentById(id);
     }
