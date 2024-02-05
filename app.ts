@@ -8,13 +8,15 @@ import { ExpensesRoutes } from './functionalities/expenses/exenses.routers.confi
 import { ApartmentsRoutes } from './functionalities/apartments/apartments.router';
 
 const app: express.Application = express();
+const cors = require('cors');
 const server: http.Server = http.createServer(app);
 const port = 3000;
 const routes: Array<CommonRoutesConfig> = [];
 
 // here we are adding middleware to parse all incoming requests as JSON 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(cors());
 
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
