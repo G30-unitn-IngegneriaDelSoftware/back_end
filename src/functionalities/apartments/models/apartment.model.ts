@@ -6,7 +6,6 @@ export class ApartmentModel implements IApartment {
     name: string;
     @IsNotEmpty()
     description: string;
-    @IsNotEmpty()
     admin: string;
     @IsNotEmpty()
     users: string[];

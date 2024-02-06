@@ -6,6 +6,10 @@
     "strict": true,
     "esModuleInterop": true,
     "inlineSourceMap": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*", "tests/*"]
+    }
   }
 }

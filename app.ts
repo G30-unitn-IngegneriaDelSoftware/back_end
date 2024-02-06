@@ -2,10 +2,10 @@ import express from 'express'
 import * as http from 'http'
 import cookieParser from 'cookie-parser'
 
-import { CommonRoutesConfig } from './functionalities/common/common.routes.config'
-import { UsersRoutes } from './functionalities/users/users.router.config'
-import { ExpensesRoutes } from './functionalities/expenses/exenses.routers.config';
-import { ApartmentsRoutes } from './functionalities/apartments/apartments.router';
+import { CommonRoutesConfig } from './src/functionalities/common/common.routes.config'
+import { UsersRoutes } from './src/functionalities/users/users.router.config'
+import { ExpensesRoutes } from './src/functionalities/expenses/exenses.routers.config';
+import { ApartmentsRoutes } from './src/functionalities/apartments/apartments.router';
 
 const app: express.Application = express();
 const cors = require('cors');

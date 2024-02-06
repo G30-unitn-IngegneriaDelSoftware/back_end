@@ -28,12 +28,12 @@ class UsersMiddleware {
     ){
         const userBody: UserModel = new UserModel(req.body);
         const username = userBody.username;
-        const user = usersService.readByUsername(username);
+        const user = await usersService.readByUsername(username);
 
-        if(!user)
-            next();
-        else
+        if(user)
             res.status(409).send("Username already in use");
+        else
+            next(); 
     }
 
     async validateUserId(

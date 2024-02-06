@@ -13,7 +13,7 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
     configureRoutes(): express.Application {
         this.app.route('/apartments')
                 .all(usersMiddleware.validateUserSession)
-                .get(apartmentsController.getApartments)
+                .get(apartmentsController.getUserApartments)
                 .post(apartmentsMiddleware.validateApartmentBody,
                     apartmentsController.post);
 
@@ -28,35 +28,39 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
         this.app.put('/apartments/:apartmentId',[
             usersMiddleware.validateUserSession,
             apartmentsMiddleware.validateApartmentBody,
+            apartmentsMiddleware.validateIsAdmin,
             apartmentsController.put
         ]);
 
         this.app.patch('/apartments/:apartmentId', 
                     usersMiddleware.validateUserSession,
+                    apartmentsMiddleware.validateIsAdmin,
                     apartmentsController.patch);
 
         this.app.route('/apartments/:apartmentId/expenses')
-                .all(usersMiddleware.validateUserSession)
-                .get(
-                    apartmentsMiddleware.validateApartmentId,
-                    apartmentsController.getApartmentExpenses)
+                .all(usersMiddleware.validateUserSession,
+                    apartmentsMiddleware.validateApartmentId)
+                .get(apartmentsController.getApartmentExpenses)
                 .post(apartmentsController.addExpenseToApartment);
+        
+        this.app.route('/apartments/:apartmentId/expenses/:expenseId')
+                .all(usersMiddleware.validateUserSession,
+                    apartmentsMiddleware.extractApartmentId,
+                    apartmentsMiddleware.extractExpenseId,
+                    apartmentsMiddleware.validateApartmentId)
+                .delete(apartmentsController.removeExpenseFromApartment);
 
         this.app.route('/apartments/:apartmentId/debits')
-                .get(
-                    usersMiddleware.validateUserSession,
-                    apartmentsMiddleware.validateApartmentId,
-                    apartmentsController.getDebits);
+                .all(usersMiddleware.validateUserSession,
+                    apartmentsMiddleware.validateApartmentId)
+                .get(apartmentsController.getDebits);
 
         this.app.route('/apartments/:apartmentId/members')
-                .get(
-                    usersMiddleware.validateUserSession,
-                    apartmentsMiddleware.validateApartmentId,
-                    apartmentsController.getApartmentMembers);
-        
-        //TODO: delete member and expense endpoints
-        //TODO: validateApartmentExpenseId middleware function
-        //TODO: validateIsAdmin middleware function
+                .all(usersMiddleware.validateUserSession,
+                    apartmentsMiddleware.validateApartmentId)
+                .get(apartmentsController.getApartmentMembers)
+                .post(apartmentsController.addMemberToApartment)
+                .delete(apartmentsController.removeMemberFromApartment);
 
         return this.app;
     }

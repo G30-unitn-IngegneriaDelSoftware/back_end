@@ -7,7 +7,7 @@ import { IApartment } from "../models/apartment.interface";
 import usersDao from "../../users/dao/users.dao";
 import expensesDao from "../../expenses/dao/expenses.dao";
 import { IExpense } from "../../expenses/model/expenses.interface";
-import usersService from "../../users/services/users.service";
+import expensesService from "../../expenses/services/expenses.service";
 
 class ApartmentsDao{
     Shema = mongooseService.getMongoose().Schema;
@@ -32,10 +32,8 @@ class ApartmentsDao{
     }
 
     async listUserApartments(limit = 25, page = 0, username: string){
-        const userId = usersService.readByUsername(username);
-
         return this.Apartment.find({
-                        members: { $elemMatch: { $eq: userId}}
+                        users: { $elemMatch: { $eq: username}}
                     })
                     .limit(limit)
                     .skip(limit * page)
@@ -50,14 +48,9 @@ class ApartmentsDao{
         const apartment = await this.Apartment.findOne({ _id: id}).exec();
 
         if(apartment){
-            const membersIDs = apartment.users;
-
-            const Users = usersDao.getSchema();
-
-            return Users.find({ _id: {"$in": membersIDs } }).exec();
+            return apartment.users;
         }
 
-        console.log("Empty");
         return [];
     }
 
@@ -109,13 +102,33 @@ class ApartmentsDao{
     async addMemberToApartment(apartmentId: string, userId: string){
         this.Apartment.findOneAndUpdate(
             {_id: apartmentId},
-            { $push: {users: userId}}
+            { $addToSet: {users: userId}},
+            { new: true }
         ).exec();
     } 
 
     //DELETE
     async deleteById(apartmentId: string){
         this.Apartment.findOneAndDelete({_id: apartmentId});
+    }
+
+
+    async removeMember(id: string, username: string) {
+        this.Apartment.findOneAndUpdate(
+            {_id: id },
+            { $pull: { users: username }},
+            { new: true }
+        ).exec();
+    }
+
+    async removeExpense(id: string, expenseId: string) {
+        this.Apartment.findOneAndUpdate(
+            {_id: id },
+            { $pull: { expenses: expenseId }},
+            { new: true }
+        ).exec();
+
+        await expensesService.deleteById(expenseId);
     }
 }
 

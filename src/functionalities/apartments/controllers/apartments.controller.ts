@@ -3,6 +3,8 @@ import express from 'express'
 import apartmentService from '../services/apartment.service'
 import { Debitor, DebitorArray } from '../models/debitors.interface';
 import apartmentsDao from '../dao/apartments.dao';
+import sessionsDao from '../../users/dao/sessions.dao';
+import expensesService from '../../expenses/services/expenses.service';
 
 class ApartmentsController{
     async getApartments(req: express.Request, res: express.Response){
@@ -11,9 +13,16 @@ class ApartmentsController{
     }
 
     async getUserApartments(req: express.Request, res: express.Response){
-        const username = req.cookies.session;
-        const apartments = await apartmentService.listUserApartments(100, 0, username);
-        res.status(200).send(apartments);
+        const username = await ApartmentsController.getCurrentUser(req.cookies.session);
+
+        try{
+            if(username){
+                const apartments = await apartmentService.listUserApartments(100, 0, username);
+                res.status(200).send(apartments);
+            }
+        }catch(error){
+            res.status(401).send("Anhautorized action");
+        }
     }
 
     async getApartmentById(req: express.Request, res: express.Response){
@@ -22,6 +31,11 @@ class ApartmentsController{
     }
 
     async post(req: express.Request, res: express.Response){
+        const sessionId = req.cookies.session;
+        const sessionToken = await sessionsDao.getUserSession(sessionId);
+        req.body.admin = sessionToken?.userId;
+        req.body.users = [sessionToken?.userId];
+
         const apartmentId = await apartmentService.create(req.body);
         res.status(201).send(apartmentId);
     }
@@ -56,10 +70,31 @@ class ApartmentsController{
         res.status(200).send(expenseId);
     }
 
-    //TODO: validate userID
+    async removeExpenseFromApartment(req: express.Request, res: express.Response){
+        await apartmentService.removeExpense(req.body.id, req.body.expenseId);
+        res.status(200).send("Expense deleted successfully");
+    }
+
     async addMemberToApartment(req: express.Request, res: express.Response){
-        await apartmentService.addMember(req.body.id, req.body);
-        res.status(200).send("Member added to apartment");
+        const username = await ApartmentsController.getCurrentUser(req.cookies.session);
+
+        if(username){
+            await apartmentService.addMember(req.body.id, username);
+            res.status(200).send("Member added to apartment");
+        }else{
+            res.status(500).send("Internal Server error");
+        }
+    }
+
+    async removeMemberFromApartment(req: express.Request, res: express.Response){
+        const username = await ApartmentsController.getCurrentUser(req.cookies.session);
+
+        if(username){
+            await apartmentService.removeMember(req.body.id, username);
+            res.status(200).send("Member removed to apartment");
+        }else{
+            res.status(500).send("Internal Server error");
+        }
     }
 
     async getDebits(req: express.Request, res: express.Response){
@@ -70,10 +105,8 @@ class ApartmentsController{
         const debitors: Debitor[] = [];
 
         members.forEach((member) => {
-            var username = member.username;
-
-            if(username){
-                const debitor: Debitor = {username, import: 0};
+            if(member){
+                const debitor: Debitor = {username: member, import: 0};
                 debitors.push(debitor);
             }
         });
@@ -82,15 +115,14 @@ class ApartmentsController{
 
         members.forEach((member) =>
         {
-            var username = member.username;
             const copiedDebitors: Debitor[] = [];
 
             debitors.forEach((item) => copiedDebitors.push({username: item.username, import: item.import}));
 
-            if(username){
+            if(member){
                 debits.push(
                     {
-                        member: username,
+                        member: member,
                         debitors: copiedDebitors
                     }
                 );
@@ -121,7 +153,13 @@ class ApartmentsController{
         });
 
         res.status(200).send(debits);
-    }    
+    }
+
+    static async getCurrentUser(sessionId: string){
+        const sessionToken = await sessionsDao.getUserSession(sessionId);
+        
+        return sessionToken?.userId;
+    }
 }
 
 export default new ApartmentsController();
