@@ -10,7 +10,7 @@ import { ApartmentsRoutes } from './src/functionalities/apartments/apartments.ro
 const app: express.Application = express();
 const cors = require('cors');
 const server: http.Server = http.createServer(app);
-const port = 3000;
+const port = 3002;
 const routes: Array<CommonRoutesConfig> = [];
 
 // here we are adding middleware to parse all incoming requests as JSON 
