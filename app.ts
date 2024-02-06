@@ -16,7 +16,7 @@ const routes: Array<CommonRoutesConfig> = [];
 // here we are adding middleware to parse all incoming requests as JSON 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({origin: "http://localhost:3000", credentials: true}));
 
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
