@@ -1,0 +1,1033 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "version": "1.0.0",
+    "title": "Co.Inqui",
+    "description": "Api documentation for Co.Inqui application",
+    "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+    }
+    },
+    "host": "localhost/3000",
+    "basePath": "/",
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": ["Autenticazione"],
+                "summary": "Endpoint for new user's registration",
+                "parameters": [{
+                    "in": "body",
+                    "name": "User",
+                    "description": "Dati per la creazione di un nuovo utente",
+                    "schema": {
+                    "$ref": "#/definitions/user"
+                    }
+                }],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "apartmentId"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                    "description": "The format of the user is not correct"
+                    },
+                    "409": {
+                    "description": "Username already in use"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": ["Autenticazione"],
+                "summary": "Endpoint for user's login",
+                "parameters": [{
+                        "in": "body",
+                        "name": "userCredentials",
+                        "description": "Credenziali per l'autenticazione dell'utente",
+                        "schema": {
+                        "$ref": "#/definitions/userlogin"
+                    }
+                }],
+                "responses": {
+                    "204": {
+                        "description": "Se l'accesso va a buon fine ritorna la sessione dell'utente",
+                        "headers": {
+                            "Set-Cookie": {
+                                "description": "Session cookie",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Username or password missing"
+                    },
+                    "401": {
+                        "description": "Invalid authentication credentials"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": ["Autenticazione"],
+                "summary": "Endpoint for user's logout",
+                "parameters": [{
+                    "in": "body",
+                    "name": "username",
+                    "description": "Username dell'utente che vuole disattivare la sua sessione",
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string",
+                            "example": "SuperMario"
+                        }
+                    }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                    "description": "OK"
+                    },
+                    "400": {
+                    "description": "Username missing"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": ["Utente"],
+                "summary": "Endpoint that returns all application users",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Viene restituita una lista di tutti gli utenti registrati all'applicazione"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    }
+                }
+            }
+        },
+        "/users/{userId}": {
+            "get": {
+                "tags": ["Utente"],
+                "summary": "Endpoint che restituisce lo specifico utente cercaro",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "userId",
+                        "schema": { "type": "string" },
+                        "required": "true",
+                        "description": "ID dell'utente specifico che si vuole cercare"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Restituisce l'utente cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "The user 'userId' does not exists"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Utente"],
+                "summary": "Endpoint che elimina l'utente ricercato",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "userId",
+                        "schema": { "type": "string" },
+                        "required": "true",
+                        "description": "ID dell'utente specifico che si vuole cancellare"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK. Elimina l'utente cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "The user 'userId' does not exists"
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Utente"],
+                "summary": "Endpoint che aggiorna la struttura dell'utente ricercato",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "userId",
+                        "schema": { "type": "string" },
+                        "required": "true",
+                        "description": "ID dell'utente specifico che si vuole cercare"
+                    },
+                    {
+                        "in": "body",
+                        "name": "User",
+                        "description": "Credenziali per l'autenticazione dell'utente. NB. Non è obbligatorio inserire tutti i campi con la patch request",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK. Elimina l'utente cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "The user 'userId' does not exists"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Utente"],
+                "summary": "Endpoint che aggiorna la struttura dell'utente ricercato",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "userId",
+                        "schema": { "type": "string" },
+                        "required": "true",
+                        "description": "ID dell'utente specifico che si vuole cercare"
+                    },
+                    {
+                        "in": "body",
+                        "name": "User",
+                        "description": "Credenziali per l'autenticazione dell'utente",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK. Elimina l'utente cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "The user 'userId' does not exists"
+                    }
+                }
+            }
+        },
+        "/expenses": {
+            "get": {
+                "tags": ["Spese"],
+                "summary": "Endpoint che ritorna tutte le spese effettuate nell'applicazione",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK, ritorna la lista di tutte le spese effettuate"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    }
+                }
+            }
+        },
+        "/expenses/{expenseId}": {
+            "get": {
+                "tags": ["Spese"],
+                "summary": "Endpoint che ritorna una spesa specifica in base all'id",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "expenseId",
+                        "schema": { "type": "string" },
+                        "description": "Id della spesa che si vuole cercare",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK, ritorna l'oggetto della spesa cercata"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Expense 'expenseId' not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Spese"],
+                "summary": "Endpoint che cancella una spesa specifica in base all'id",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "expenseId",
+                        "schema": { "type": "string" },
+                        "description": "Id della spesa che si vuole eliminare",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK, cancella l'oggetto della spesa con l'id cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Expense 'expenseId' not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Spese"],
+                "summary": "Endpoint che modifica una spesa specifica in base all'id",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "expenseId",
+                        "schema": { "type": "string" },
+                        "description": "Id della spesa che si vuole aggiornare",
+                        "required": "true"
+                    },
+                    {
+                        "in": "body",
+                        "name": "expense",
+                        "description": "Dati aggiornati per spesa cercata",
+                        "schema": {
+                            "$ref": "#/definitions/expense"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK, cancella l'oggetto della spesa con l'id cercato"
+                    },
+                    "400": {
+                        "description": "The format of expense is not correct"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Expense 'expenseId' not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Spese"],
+                "summary": "Endpoint che modifica una spesa specifica in base all'id",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "expenseId",
+                        "schema": { "type": "string" },
+                        "description": "Id della spesa che si vuole aggiornare",
+                        "required": "true"
+                    },
+                    {
+                        "in": "body",
+                        "name": "expense",
+                        "description": "Dati aggiornati per spesa cercata. NB: con la patch request non tutti i campi sono obbligatori",
+                        "schema": {
+                            "$ref": "#/definitions/expense"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK, cancella l'oggetto della spesa con l'id cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Expense 'expenseId' not found"
+                    }
+                }
+            }
+        },
+        "/apartments": {
+            "get": {
+                "tags": ["Appartamenti"],
+                "summary": "Endpoint che ritorna tutti gli appartamenti di un utente",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK, ritorna la lista di tutti gli appartamenti in cui l'utente di cui è attiva la sessione fa parte"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Appartamenti"],
+                "summary": "Endpoint che aggiunge un nuovo appartamento all'appplicazione",
+                "parameters": [
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "body",
+                        "name": "appartmento",
+                        "schema": {
+                            "$ref": "#/definitions/apartment"
+                        },
+                        "description": "Corpo dell'appartmento da aggiungere",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "apartmentId"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The format of the apartment is not correct"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    }
+                }
+            }
+        },
+        "/apartments/{apartmentId}": {
+            "get": {
+                "tags": ["Appartamenti"],
+                "summary": "Endpoint che restituisce un appartamento specificato dall'id",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento che si vuole cercare",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Restituisce l'oggetto dell'appartamento cercato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Appartamenti"],
+                "summary": "Endpoint che cancella un appartamento specificato dall'id",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento che si vuole cancellare",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK. Cancella l'appartamento dpecificato dall'id passato come parametro"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Appartamenti"],
+                "summary": "Endpoint che modifica il corpo di un appartamento specificato dall'id",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento che si vuole modificare",
+                        "required": "true"
+                    },
+                    {
+                        "in": "body",
+                        "name": "apartment", 
+                        "description": "Corpo modificato dell'oggetto che si vuole aggiornare. NB: nell apatch non tutti i campi sono obbligatori",
+                        "schema": {
+                            "$ref": "#/definitions/apartment"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK. Modifica dell'appartamento cercato"
+                    },
+                    "401": {
+                        "description": "\"Unauthorized access\" oppure \"Only the admin can perform this action\""
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Appartamenti"],
+                "summary": "Endpoint che modifica il corpo di un appartamento specificato dall'id",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento che si vuole modificare",
+                        "required": "true"
+                    },
+                    {
+                        "in": "body",
+                        "name": "apartment", 
+                        "description": "Corpo modificato dell'oggetto che si vuole aggiornare",
+                        "schema": {
+                            "$ref": "#/definitions/apartment"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK. Modifica dell'appartamento cercato"
+                    },
+                    "400": {
+                        "description": "The format of the apartment is not correct"
+                    },
+                    "401": {
+                        "description": "\"Unauthorized access\" oppure \"Only the admin can perform this action\""
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            }
+        },
+        "/apartment/{apartmentId}/expenses": {
+            "get": {
+                "tags": ["Appartamenti", "Spese"],
+                "summary": "Endpoint che ritorna tutte le spese di un determinato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento di cui si vogliono vedere le spese",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Ritorna la lista delle spese di un determinato appartamento"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Appartamenti", "Spese"],
+                "summary": "Endpoint che aggiunge una spesa ad un determinato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento dove si vuole aggiungere una nuova spesa",
+                        "required": "true"
+                    },
+                    {
+                        "in": "body",
+                        "name": "expense",
+                        "description": "Corpo della spesa che si vuole aggiungere",
+                        "schema": {
+                            "$ref": "#/definitions/expense"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Aggiunge una spesa all'appartamento specificato",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "\"The format of  expense is not correct\" oppure \"One or more of the users are not inside apartment 'apartmentId'\""
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            }
+        },
+        "/apartment/{apartmentId}/expenses/{expenseId}": {
+            "delete": {
+                "tags": ["Appartamenti", "Spese"],
+                "summary": "Endpoint che cancella una determinata spesa di un determinato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento di cui si vogliono cancellare le spese",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "expenseId",
+                        "schema": { "type": "string" },
+                        "description": "Id della spesa contenuta nell'appartamento che si vuole cancellare",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Cancella la spesa specificata dall'id di un determinato appartamento"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId'/'expenseId' not found"
+                    }
+                }
+            }
+        },
+        "/apartment/{apartmentId}/debits": {
+            "get": {
+                "tags": ["Appartamenti", "Spese"],
+                "summary": "Endpoint che ritorna tutti i saldi di un dato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento di cui si vogliono vedere i saldi",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Restituise tutti i dati relativi ai saldi degli utenti di un determinato appartamento",
+                        "schema": {
+                            "properties": {
+                                "member": {
+                                    "type": "string",
+                                    "example": "username1"
+                                },
+                                "debitors": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "username": { "type": "string" },
+                                            "import": { "type": "number" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId'/'expenseId' not found"
+                    }
+                }
+            }
+        },
+        "/apartment/{apartmentId}/members": {
+            "get": {
+                "tags": ["Appartamenti", "Utente"],
+                "summary": "Endpoint che ritorna tutti i membri di una dato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento di cui si vogliono vedere i membri",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Ritorna la lista degli utenti di un determinato appartamento"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Appartamenti", "Utente"],
+                "summary": "Endpoint che aggiunge un membro ad un dato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento di cui si vogliono vedere i membri",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Aggiunge l'utente della sessione all'appartamento specificato"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    },
+                    "500": {
+                        "description": "Internal derver error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Appartamenti", "Utente"],
+                "summary": "Endpoint che rimuove un utente dall'appartamento una dato appartamento",
+                "parameters":[
+                    {
+                        "in": "cookie",
+                        "name": "sessionId",
+                        "schema": { "type": "string" },
+                        "description": "Codice sessione dell'utente",
+                        "required": "true"
+                    },
+                    {
+                        "in": "header",
+                        "name": "apartmentId",
+                        "schema": { "type": "string" },
+                        "description": "Id dell'appartamento dal quale si vuole rimuovere l'utente",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Rimuove un utente da un dato appartamento"
+                    },
+                    "401": {
+                        "description": "Unauthorized access"
+                    },
+                    "404": {
+                        "description": "Apartment 'apartmentId' not found"
+                    },
+                    "500": {
+                        "description": "Internal derver error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+            "firstName": {
+                "type": "string",
+                "example": "Mario"
+            },
+            "lastName": {
+                "type": "string",
+                "example": "Rossi"
+            },
+            "username": {
+                "type": "string",
+                "example": "SuperMario"
+            },
+            "email": {
+                "type": "string",
+                "example": "mariorossi@mail.com"
+            },
+            "telephone": {
+                "type": "string",
+                "example": "3652542156"
+            },
+            "birthDate": {
+                "type": "date",
+                "example": "1987-04-05"
+            },
+            "password": {
+                "type": "string",
+                "example": "password"
+            }
+            }
+        },
+        "userlogin": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "example": "SuperMario"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "password"
+                }
+            }
+        },
+        "expense": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Spesa caffe"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Oggi ho comprato il caffe per la casa"
+                },
+                "import": {
+                    "type": "number",
+                    "example": "1.5€"
+                },
+                "date": {
+                    "type": "date",
+                    "example": "2024-03-05"
+                },
+                "creditor": {
+                    "type": "string",
+                    "example": "IdUtenteCreditore"
+                },
+                "debitors": {
+                    "type": "string[]",
+                    "example": ["IdUtenteDebitore1", "IdUtenteDebitore2"]
+                }
+            }
+        },
+        "apartment": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Appartamento via Roma, 16, TN"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Qui si trovano i coinquilini di via Roma 16 per la gestione delle spese"
+                },
+                "admin": {
+                    "type": "string",
+                    "example": "username1"
+                },
+                "users": {
+                    "type": "string[]",
+                    "example": ["username1", "username2", "username3"]
+                },
+                "expenses": {
+                    "type": "string[]",
+                    "example": ["IDspesa1", "IDspesa2", "IDspesa3"]
+                }
+            }
+        }
+    }
+}
