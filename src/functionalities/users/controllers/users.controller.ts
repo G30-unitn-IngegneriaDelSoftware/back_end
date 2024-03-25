@@ -8,7 +8,7 @@ class UsersController{
         const response = await usersDao.login(req.body.username, req.body.password);
         
         if(response == -1){
-            res.status(401).send("Invalid authentication credentials");
+            res.status(401).send({message: "Invalid authentication credentials"});
         }else{
             res.cookie('session', response, {maxAge: 60 * 60 * 1000, secure: true, sameSite: 'none'});
             res.setHeader('Access-Control-Allow-Credentials', 'true');

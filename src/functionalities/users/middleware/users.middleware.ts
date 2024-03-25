@@ -14,7 +14,7 @@ class UsersMiddleware {
 
         validate(userBody).then(errors => {
             if(errors.length > 0)
-                res.status(400).send("The format of the user is not correct");
+                res.status(400).send({message: "The format of the user is not correct"});
             else{
                 next();
             }
@@ -31,7 +31,7 @@ class UsersMiddleware {
         const user = await usersService.readByUsername(username);
 
         if(user)
-            res.status(409).send("Username already in use");
+            res.status(409).send({message: "Username already in use"});
         else
             next(); 
     }
@@ -46,7 +46,7 @@ class UsersMiddleware {
         if(user)
             next();
         else
-            res.status(404).send(`The user ${req.body.id} does not exists`);
+            res.status(404).send({message: `The user ${req.body.id} does not exists`});
     }
 
     async validateLoginData(
@@ -57,7 +57,7 @@ class UsersMiddleware {
         if(req.body.username && req.body.password)
             next();
         else
-            res.status(400).send("Username or password missing");
+            res.status(400).send({message: "Username or password missing"});
     }
 
     async validateLogoutData(
@@ -68,7 +68,7 @@ class UsersMiddleware {
         if(req.body.username)
             next();
         else
-            res.status(400).send("Username missing");
+            res.status(400).send({message: "Username missing"});
     }
 
     async validateUserSession(
@@ -84,9 +84,9 @@ class UsersMiddleware {
             if(sessionId)
                 next();
             else
-                res.status(401).send('Unauthorized access');
+                res.status(401).send({message: 'Unauthorized access'});
         }else
-            res.status(401).send('Unauthorized access');
+            res.status(401).send({message: 'Unauthorized access'});
     }
 
     async extractUserId(

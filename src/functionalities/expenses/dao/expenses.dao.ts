@@ -25,14 +25,14 @@ class ExpensesDao {
 
     //GET requests
     async getExpenses(limit = 25, page = 0){
-        return this.Expense.find()
+        return await this.Expense.find()
             .limit(limit)
             .skip(limit*page)
             .exec();
     }
 
     async getExpenseById(expenseId: string){
-        return this.Expense.findOne({ _id: expenseId }).exec();
+        return await this.Expense.findOne({ _id: expenseId }).exec();
     }
 
     //POST requests
@@ -49,7 +49,7 @@ class ExpensesDao {
 
     //PATCH E PUT
     async updateExpenseById(expenseId: String, expenseFields: IExpense | Partial<IExpense>){
-        this.Expense.findOneAndUpdate(
+        await this.Expense.findOneAndUpdate(
             {_id: expenseId},
             {$set: expenseFields},
             {new: true}
@@ -58,7 +58,7 @@ class ExpensesDao {
 
     //DELETE
     async removeExpenseById(expenseId: string){
-        this.Expense.findOneAndDelete({_id: expenseId }).exec();
+        await this.Expense.findOneAndDelete({_id: expenseId }).exec();
     }
 }
 

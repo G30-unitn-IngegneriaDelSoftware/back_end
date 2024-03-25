@@ -2,9 +2,7 @@ import express from 'express'
 
 import apartmentService from '../services/apartment.service'
 import { Debitor, DebitorArray } from '../models/debitors.interface';
-import apartmentsDao from '../dao/apartments.dao';
 import sessionsDao from '../../users/dao/sessions.dao';
-import expensesService from '../../expenses/services/expenses.service';
 
 class ApartmentsController{
     async getApartments(req: express.Request, res: express.Response){
@@ -15,13 +13,9 @@ class ApartmentsController{
     async getUserApartments(req: express.Request, res: express.Response){
         const username = await ApartmentsController.getCurrentUser(req.cookies.session);
 
-        try{
-            if(username){
-                const apartments = await apartmentService.listUserApartments(100, 0, username);
-                res.status(200).send(apartments);
-            }
-        }catch(error){
-            res.status(401).send("Anhautorized action");
+        if(username){
+            const apartments = await apartmentService.listUserApartments(100, 0, username);
+            res.status(200).send(apartments);
         }
     }
 
@@ -37,7 +31,7 @@ class ApartmentsController{
         req.body.users = [sessionToken?.userId];
 
         const apartmentId = await apartmentService.create(req.body);
-        res.status(201).send(apartmentId);
+        res.status(201).send({id: apartmentId});
     }
 
     async put(req: express.Request, res: express.Response){
@@ -67,12 +61,12 @@ class ApartmentsController{
 
     async addExpenseToApartment(req: express.Request, res: express.Response){
         const expenseId = await apartmentService.addExpense(req.body.id, req.body);
-        res.status(200).send(expenseId);
+        res.status(201).send({id: expenseId});
     }
 
     async removeExpenseFromApartment(req: express.Request, res: express.Response){
         await apartmentService.removeExpense(req.body.id, req.body.expenseId);
-        res.status(200).send("Expense deleted successfully");
+        res.status(200).send({message: "Expense deleted successfully"});
     }
 
     async addMemberToApartment(req: express.Request, res: express.Response){
@@ -80,9 +74,9 @@ class ApartmentsController{
 
         if(username){
             await apartmentService.addMember(req.body.id, username);
-            res.status(200).send("Member added to apartment");
+            res.status(200).send({message: "Member added to apartment"});
         }else{
-            res.status(500).send("Internal Server error");
+            res.status(500).send({message: "Internal Server error"});
         }
     }
 
@@ -91,9 +85,9 @@ class ApartmentsController{
 
         if(username){
             await apartmentService.removeMember(req.body.id, username);
-            res.status(200).send("Member removed to apartment");
+            res.status(200).send({message: "Member removed from apartment"});
         }else{
-            res.status(500).send("Internal Server error");
+            res.status(500).send({message: "Internal Server error"});
         }
     }
 

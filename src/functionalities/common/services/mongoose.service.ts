@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+require('dotenv').config();
 
 class MongooseService {
     private count = 0;
@@ -17,7 +18,7 @@ class MongooseService {
     connectWithRetry = () => {
         console.log('Attempting MongoDB connection (will retry if needed)');
         mongoose
-            .connect('mongodb://localhost:27017/api-db', this.mongooseOptions)
+            .connect(process.env.DB_STRING || '', this.mongooseOptions)
             .then(() => {
                 console.log('MongoDB is connected');
             })

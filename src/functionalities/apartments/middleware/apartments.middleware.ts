@@ -4,6 +4,7 @@ import apartmentService from '../services/apartment.service'
 import { ApartmentModel } from '../models/apartment.model';
 import { validate } from 'class-validator';
 import sessionsDao from '../../users/dao/sessions.dao';
+import expensesService from 'functionalities/expenses/services/expenses.service';
 
 class ApartmentsMiddleware{
     async validateApartmentBody(
@@ -15,7 +16,7 @@ class ApartmentsMiddleware{
 
         validate(apartment).then(errors =>{
             if(errors.length > 0)
-                res.status(400).send("The format of the apartment is not correct");
+                res.status(400).send({message: "The format of the apartment is not correct"});
             else
                 next();
         });
@@ -31,7 +32,20 @@ class ApartmentsMiddleware{
         if(apartment){
             next();
         }else
-            res.status(404).send(`Apartment ${req.body.id} not found`);
+            res.status(404).send({message: `Apartment ${req.body.id} not found`});
+    }
+
+    async validateExpenseId(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ){
+        const expense = await expensesService.readById(req.body.expenseId);
+
+        if(expense){
+            next();
+        }else
+            res.status(404).send({message: `Expense ${req.body.expenseId} not found`});
     }
 
     async validateIsAdmin(
@@ -47,10 +61,9 @@ class ApartmentsMiddleware{
             if(sessionToken.userId && apartment.admin === sessionToken.userId){
                 next();
             }else{
-                res.status(401).send("Only the admin can do this action");
+                res.status(401).send({message: "Only the admin can perform this action"});
             }
-        }else
-            res.status(404).send(`Apartment ${req.body.id} not found`);
+        }
     }
 
     async extractApartmentId(
@@ -58,9 +71,7 @@ class ApartmentsMiddleware{
         res: express.Response,
         next: express.NextFunction
     ){
-        console.log(req.params.apartmentId);
         req.body.id = req.params.apartmentId;
-        console.log(req.body.id);
         next();
     }
 
@@ -69,7 +80,6 @@ class ApartmentsMiddleware{
         res: express.Response,
         next: express.NextFunction
     ){
-        console.log(req.params);
         req.body.expenseId = req.params.expenseId;
         next();
     }

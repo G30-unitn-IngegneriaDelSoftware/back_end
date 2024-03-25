@@ -2,7 +2,6 @@ import express from "express";
 import { validate } from "class-validator";
 import { ExpenseModel } from "../model/expenses.model";
 import apartmentService from "../../apartments/services/apartment.service";
-import expensesDao from "../dao/expenses.dao";
 import expensesService from "../services/expenses.service";
 
 class ExpensesMiddleWare {
@@ -15,7 +14,7 @@ class ExpensesMiddleWare {
 
         validate(expenseBody).then(errors => {
             if(errors.length > 0)
-                res.status(400).send("The format of expense is not correct");
+                res.status(400).send({message: "The format of expense is not correct"});
             else
                 next();
         });
@@ -29,7 +28,7 @@ class ExpensesMiddleWare {
         const creditorId = req.body.creditor;
         const debitorsIDs = req.body.debitors;
         
-        const apartment = await apartmentService.readById(req.body.apartmentId);
+        const apartment = await apartmentService.readById(req.body.id);
 
         if(apartment){
             const userIDs = apartment.users;
@@ -60,20 +59,10 @@ class ExpensesMiddleWare {
             if(found)
                 next()
             else
-                res.status(400).send(`One or more of the users are not inside apartment ${req.body.apartmentId}`);
+                res.status(400).send({message: `One or more of the users are not inside apartment ${req.body.id}`});
         }
     }
-
-    async extractApartmentId(
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ){
-        req.body.apartmentId = req.params.apartmentId;
-        
-        next();
-    }
-
+    
     async extractExpenseId(
         req: express.Request,
         res: express.Response,
@@ -89,11 +78,11 @@ class ExpensesMiddleWare {
         next: express.NextFunction
     ){
         const expense = await expensesService.readById(req.body.id);
-
+        
         if(expense)
             next();
         else
-            res.status(404).send("Espense not found");
+            res.status(404).send({message: `Expense ${req.body.id} not found`});
     }
 }
 

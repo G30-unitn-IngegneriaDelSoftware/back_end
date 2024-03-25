@@ -4,7 +4,6 @@ import shortid from "shortid";
 import { IApartment } from "../models/apartment.interface";
 
 //External Daos
-import usersDao from "../../users/dao/users.dao";
 import expensesDao from "../../expenses/dao/expenses.dao";
 import { IExpense } from "../../expenses/model/expenses.interface";
 import expensesService from "../../expenses/services/expenses.service";
@@ -64,8 +63,7 @@ class ApartmentsDao{
 
             return Expenses.find({ _id: {"$in": expensesIDs } }).exec();
         }
-
-        console.log("Empty");
+        
         return [];
     }
 
@@ -83,7 +81,7 @@ class ApartmentsDao{
 
     //PATCH AND PUT
     async updateApartmentById(apartmentId: string, apartmentFields: IApartment | Partial<IApartment>){
-        this.Apartment.findOneAndUpdate(
+        await this.Apartment.findOneAndUpdate(
             {_id: apartmentId},
             {$set: apartmentFields},
             {new: true}
@@ -91,8 +89,8 @@ class ApartmentsDao{
     }
 
     async addExpenseToApartment(apartmentId: string, expenseFields: IExpense){
-        const expenseId = await expensesDao.addExpense(expenseFields);
-        this.Apartment.findOneAndUpdate(
+        const expenseId = await expensesService.create(expenseFields);
+        await this.Apartment.findOneAndUpdate(
             {_id: apartmentId},
             { $push: {"expenses": expenseId }}
         ).exec();
@@ -100,7 +98,7 @@ class ApartmentsDao{
     }
 
     async addMemberToApartment(apartmentId: string, userId: string){
-        this.Apartment.findOneAndUpdate(
+        await this.Apartment.findOneAndUpdate(
             {_id: apartmentId},
             { $addToSet: {users: userId}},
             { new: true }
@@ -109,12 +107,12 @@ class ApartmentsDao{
 
     //DELETE
     async deleteById(apartmentId: string){
-        this.Apartment.findOneAndDelete({_id: apartmentId});
+        await this.Apartment.findOneAndDelete({_id: apartmentId});
     }
 
 
     async removeMember(id: string, username: string) {
-        this.Apartment.findOneAndUpdate(
+        await this.Apartment.findOneAndUpdate(
             {_id: id },
             { $pull: { users: username }},
             { new: true }
@@ -122,7 +120,7 @@ class ApartmentsDao{
     }
 
     async removeExpense(id: string, expenseId: string) {
-        this.Apartment.findOneAndUpdate(
+        await this.Apartment.findOneAndUpdate(
             {_id: id },
             { $pull: { expenses: expenseId }},
             { new: true }

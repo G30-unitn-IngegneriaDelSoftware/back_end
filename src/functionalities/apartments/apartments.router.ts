@@ -4,6 +4,7 @@ import apartmentsController from "./controllers/apartments.controller";
 import apartmentsMiddleware from "./middleware/apartments.middleware";
 import { CommonRoutesConfig } from "../common/common.routes.config";
 import usersMiddleware from "../users/middleware/users.middleware";
+import expensesMiddleware from "../expenses/middleware/expenses.middleware";
 
 export class ApartmentsRoutes extends CommonRoutesConfig{
     constructor(app: express.Application){
@@ -19,8 +20,7 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
 
         this.app.param('apartmentId', apartmentsMiddleware.extractApartmentId);
         this.app.route('/apartments/:apartmentId')
-                .all(
-                    usersMiddleware.validateUserSession,
+                .all(usersMiddleware.validateUserSession,
                     apartmentsMiddleware.validateApartmentId)
                 .get(apartmentsController.getApartmentById)
                 .delete(apartmentsController.delete);
@@ -37,16 +37,20 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
                     apartmentsMiddleware.validateIsAdmin,
                     apartmentsController.patch);
 
+        //routes per le spese
         this.app.route('/apartments/:apartmentId/expenses')
                 .all(usersMiddleware.validateUserSession,
                     apartmentsMiddleware.validateApartmentId)
                 .get(apartmentsController.getApartmentExpenses)
-                .post(apartmentsController.addExpenseToApartment);
+                .post(expensesMiddleware.validateExpenseRequestBody,
+                    expensesMiddleware.validateCreditorAndDebitors,
+                    apartmentsController.addExpenseToApartment);
         
         this.app.route('/apartments/:apartmentId/expenses/:expenseId')
                 .all(usersMiddleware.validateUserSession,
                     apartmentsMiddleware.extractApartmentId,
                     apartmentsMiddleware.extractExpenseId,
+                    apartmentsMiddleware.validateExpenseId,
                     apartmentsMiddleware.validateApartmentId)
                 .delete(apartmentsController.removeExpenseFromApartment);
 
@@ -55,6 +59,8 @@ export class ApartmentsRoutes extends CommonRoutesConfig{
                     apartmentsMiddleware.validateApartmentId)
                 .get(apartmentsController.getDebits);
 
+        
+        //routes per gli utenti 
         this.app.route('/apartments/:apartmentId/members')
                 .all(usersMiddleware.validateUserSession,
                     apartmentsMiddleware.validateApartmentId)

@@ -1,4 +1,4 @@
-import { Min, IsNotEmpty } from "class-validator";
+import { Min, IsNotEmpty, ArrayNotEmpty } from "class-validator";
 import { IExpense } from "./expenses.interface";
 
 export class ExpenseModel implements IExpense{
@@ -14,6 +14,7 @@ export class ExpenseModel implements IExpense{
     @IsNotEmpty()
     creditor: string;
     @IsNotEmpty()
+    @ArrayNotEmpty()
     debitors: string[];
 
     constructor(data: Partial<IExpense>){

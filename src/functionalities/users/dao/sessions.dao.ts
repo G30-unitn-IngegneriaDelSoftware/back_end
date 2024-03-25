@@ -16,7 +16,7 @@ class SessionDao{
 
     async getUserSession(sessionId: string){
         await this.clearExpiredsessions();
-        return this.Session.findOne({sessionId: sessionId}).exec();
+        return await this.Session.findOne({sessionId: sessionId}).exec();
     }
 
     async createSession(userID: string){

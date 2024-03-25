@@ -3,8 +3,6 @@ import express from 'express'
 import { CommonRoutesConfig } from '../common/common.routes.config'
 import expensesMiddleware from './middleware/expenses.middleware';
 import expensesController from './controllers/expenses.controller';
-import apartmentsMiddleware from '../apartments/middleware/apartments.middleware';
-import apartmentsController from '../apartments/controllers/apartments.controller';
 import usersMiddleware from '../users/middleware/users.middleware';
 
 export class ExpensesRoutes extends CommonRoutesConfig {
@@ -19,7 +17,8 @@ export class ExpensesRoutes extends CommonRoutesConfig {
 
         this.app.param('expenseId', expensesMiddleware.extractExpenseId);
         this.app.route('/expenses/:expenseId')
-                .all(usersMiddleware.validateUserSession)
+                .all(usersMiddleware.validateUserSession,
+                    expensesMiddleware.validateExpenseId)
                 .get(expensesController.getById)
                 .delete(expensesController.removeById);
 
@@ -27,12 +26,14 @@ export class ExpensesRoutes extends CommonRoutesConfig {
             [
                 usersMiddleware.validateUserSession,
                 expensesMiddleware.validateExpenseRequestBody,
+                expensesMiddleware.validateExpenseId,
                 expensesController.putExpenseById
             ]
         );
 
         this.app.patch('/expenses/:expenseId', 
                         usersMiddleware.validateUserSession,
+                        expensesMiddleware.validateExpenseId,
                         expensesController.patchExpenseById);
 
         return this.app;

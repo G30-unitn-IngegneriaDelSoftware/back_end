@@ -7,9 +7,7 @@ export class ApartmentModel implements IApartment {
     @IsNotEmpty()
     description: string;
     admin: string;
-    @IsNotEmpty()
     users: string[];
-    @IsNotEmpty()
     expenses: string[];
 
     constructor(data: IApartment | Partial<IApartment>){

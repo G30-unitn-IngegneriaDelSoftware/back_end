@@ -2,7 +2,6 @@ import shortid from 'shortid';
 import * as crypto from 'crypto';
 
 import mongooseService from "../../common/services/mongoose.service";
-import { UserModel } from "../models/user.model";
 import { IUser } from '../models/user.interface';
 import sessionsDao from './sessions.dao';
 
@@ -38,7 +37,7 @@ class UsersDao {
     
     //GET requests
     async getUsers(limit = 25, page = 0){
-        return this.User.find()
+        return await this.User.find()
         .select('-password -salt')
         .limit(limit)
         .skip(limit*page)
@@ -47,11 +46,11 @@ class UsersDao {
     
     
     async getUserByid(userId: string){
-        return this.User.findOne({_id: userId}).select('-password -salt').exec();
+        return await this.User.findOne({_id: userId}).select('-password -salt').exec();
     }
 
     async getUserByUsername(username: string){
-        return this.User.findOne({username: username}).select('-password -salt').exec();
+        return await this.User.findOne({username: username}).select('-password -salt').exec();
     }
     
     //POST requests
@@ -92,7 +91,7 @@ class UsersDao {
     //PUT requests
     //PATCH request
     async updateUserById(userId: string, userFields: IUser | Partial<IUser>){
-        this.User.findOneAndUpdate(
+        await this.User.findOneAndUpdate(
             {_id: userId },
             {$set: userFields },
             {new: true }
@@ -101,7 +100,7 @@ class UsersDao {
 
     //DELETE requests
     async removeById(userId: string){
-        this.User.deleteOne({_id: userId}).exec();
+        await this.User.deleteOne({_id: userId}).exec();
     }
 }
 
