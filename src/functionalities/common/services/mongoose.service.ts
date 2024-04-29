@@ -17,8 +17,11 @@ class MongooseService {
 
     connectWithRetry = () => {
         console.log('Attempting MongoDB connection (will retry if needed)');
+
+        const dbString = (process.env.NODE_ENV === 'test') ? process.env.TEST_DB_STRING : process.env.DB_STRING;
+
         mongoose
-            .connect(process.env.DB_STRING || '', this.mongooseOptions)
+            .connect(dbString || '', this.mongooseOptions)
             .then(() => {
                 console.log('MongoDB is connected');
             })
