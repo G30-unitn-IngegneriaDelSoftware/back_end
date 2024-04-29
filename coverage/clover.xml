@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1710404208153" clover="3.2.0">
-  <project timestamp="1710404208153" name="All files">
-    <metrics statements="465" coveredstatements="445" conditionals="125" coveredconditionals="97" methods="136" coveredmethods="127" elements="726" coveredelements="669" complexity="0" loc="465" ncloc="465" packages="21" files="22" classes="22"/>
+<coverage generated="1714406280166" clover="3.2.0">
+  <project timestamp="1714406280167" name="All files">
+    <metrics statements="470" coveredstatements="449" conditionals="127" coveredconditionals="98" methods="140" coveredmethods="130" elements="737" coveredelements="677" complexity="0" loc="470" ncloc="470" packages="21" files="22" classes="22"/>
     <package name="back_end">
       <metrics statements="22" coveredstatements="19" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="0"/>
-      <file name="app.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/app.ts">
+      <file name="app.ts" path="/home/riccardo/Documents/Git/back_end/app.ts">
         <metrics statements="22" coveredstatements="19" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -32,7 +32,7 @@
     </package>
     <package name="back_end.src.functionalities.apartments">
       <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="apartments.router.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/apartments/apartments.router.ts">
+      <file name="apartments.router.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/apartments.router.ts">
         <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -55,7 +55,7 @@
     </package>
     <package name="back_end.src.functionalities.apartments.controllers">
       <metrics statements="69" coveredstatements="65" conditionals="28" coveredconditionals="22" methods="22" coveredmethods="21"/>
-      <file name="apartments.controller.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/apartments/controllers/apartments.controller.ts">
+      <file name="apartments.controller.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/controllers/apartments.controller.ts">
         <metrics statements="69" coveredstatements="65" conditionals="28" coveredconditionals="22" methods="22" coveredmethods="21"/>
         <line num="3" count="3" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
@@ -129,9 +129,9 @@
       </file>
     </package>
     <package name="back_end.src.functionalities.apartments.dao">
-      <metrics statements="34" coveredstatements="31" conditionals="6" coveredconditionals="2" methods="13" coveredmethods="12"/>
-      <file name="apartments.dao.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/apartments/dao/apartments.dao.ts">
-        <metrics statements="34" coveredstatements="31" conditionals="6" coveredconditionals="2" methods="13" coveredmethods="12"/>
+      <metrics statements="36" coveredstatements="32" conditionals="6" coveredconditionals="2" methods="15" coveredmethods="13"/>
+      <file name="apartments.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/dao/apartments.dao.ts">
+        <metrics statements="36" coveredstatements="32" conditionals="6" coveredconditionals="2" methods="15" coveredmethods="13"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
@@ -139,7 +139,9 @@
         <line num="12" count="3" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
         <line num="23" count="3" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="27" count="0" type="stmt"/>
+        <line num="33" count="1" type="cond" truecount="0" falsecount="2"/>
         <line num="34" count="1" type="stmt"/>
         <line num="43" count="41" type="stmt"/>
         <line num="47" count="2" type="stmt"/>
@@ -170,7 +172,7 @@
     </package>
     <package name="back_end.src.functionalities.apartments.middleware">
       <metrics statements="30" coveredstatements="30" conditionals="13" coveredconditionals="13" methods="7" coveredmethods="7"/>
-      <file name="apartments.middleware.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/apartments/middleware/apartments.middleware.ts">
+      <file name="apartments.middleware.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/middleware/apartments.middleware.ts">
         <metrics statements="30" coveredstatements="30" conditionals="13" coveredconditionals="13" methods="7" coveredmethods="7"/>
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -206,7 +208,7 @@
     </package>
     <package name="back_end.src.functionalities.apartments.models">
       <metrics statements="9" coveredstatements="9" conditionals="10" coveredconditionals="9" methods="1" coveredmethods="1"/>
-      <file name="apartment.model.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/apartments/models/apartment.model.ts">
+      <file name="apartment.model.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/models/apartment.model.ts">
         <metrics statements="9" coveredstatements="9" conditionals="10" coveredconditionals="9" methods="1" coveredmethods="1"/>
         <line num="2" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -221,7 +223,7 @@
     </package>
     <package name="back_end.src.functionalities.apartments.services">
       <metrics statements="15" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="13" coveredmethods="12"/>
-      <file name="apartment.service.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/apartments/services/apartment.service.ts">
+      <file name="apartment.service.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/services/apartment.service.ts">
         <metrics statements="15" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="13" coveredmethods="12"/>
         <line num="3" count="3" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -242,7 +244,7 @@
     </package>
     <package name="back_end.src.functionalities.common">
       <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <file name="common.routes.config.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/common/common.routes.config.ts">
+      <file name="common.routes.config.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/common/common.routes.config.ts">
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="3" count="3" type="stmt"/>
         <line num="8" count="9" type="stmt"/>
@@ -252,9 +254,9 @@
       </file>
     </package>
     <package name="back_end.src.functionalities.common.services">
-      <metrics statements="14" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="4"/>
-      <file name="mongoose.service.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/common/services/mongoose.service.ts">
-        <metrics statements="14" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="4"/>
+      <metrics statements="15" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="4"/>
+      <file name="mongoose.service.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/common/services/mongoose.service.ts">
+        <metrics statements="15" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="4"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
@@ -263,17 +265,18 @@
         <line num="15" count="24" type="stmt"/>
         <line num="18" count="3" type="stmt"/>
         <line num="19" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="23" count="3" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="36" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
       </file>
     </package>
     <package name="back_end.src.functionalities.expenses">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="exenses.routers.config.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/expenses/exenses.routers.config.ts">
+      <file name="exenses.routers.config.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/expenses/exenses.routers.config.ts">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -291,7 +294,7 @@
     </package>
     <package name="back_end.src.functionalities.expenses.controllers">
       <metrics statements="14" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
-      <file name="expenses.controller.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/expenses/controllers/expenses.controller.ts">
+      <file name="expenses.controller.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/expenses/controllers/expenses.controller.ts">
         <metrics statements="14" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
         <line num="3" count="3" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
@@ -310,15 +313,16 @@
       </file>
     </package>
     <package name="back_end.src.functionalities.expenses.dao">
-      <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="7"/>
-      <file name="expenses.dao.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/expenses/dao/expenses.dao.ts">
-        <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="7"/>
+      <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="8"/>
+      <file name="expenses.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/expenses/dao/expenses.dao.ts">
+        <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="8"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
         <line num="10" count="3" type="stmt"/>
         <line num="20" count="3" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
+        <line num="27" count="1" type="cond" truecount="0" falsecount="2"/>
         <line num="28" count="1" type="stmt"/>
         <line num="35" count="18" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
@@ -332,7 +336,7 @@
     </package>
     <package name="back_end.src.functionalities.expenses.middleware">
       <metrics statements="37" coveredstatements="37" conditionals="11" coveredconditionals="11" methods="6" coveredmethods="6"/>
-      <file name="expenses.middleware.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/expenses/middleware/expenses.middleware.ts">
+      <file name="expenses.middleware.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/expenses/middleware/expenses.middleware.ts">
         <metrics statements="37" coveredstatements="37" conditionals="11" coveredconditionals="11" methods="6" coveredmethods="6"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -375,7 +379,7 @@
     </package>
     <package name="back_end.src.functionalities.expenses.model">
       <metrics statements="14" coveredstatements="14" conditionals="10" coveredconditionals="7" methods="1" coveredmethods="1"/>
-      <file name="expenses.model.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/expenses/model/expenses.model.ts">
+      <file name="expenses.model.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/expenses/model/expenses.model.ts">
         <metrics statements="14" coveredstatements="14" conditionals="10" coveredconditionals="7" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -395,7 +399,7 @@
     </package>
     <package name="back_end.src.functionalities.expenses.services">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
-      <file name="expenses.service.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/expenses/services/expenses.service.ts">
+      <file name="expenses.service.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/expenses/services/expenses.service.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
         <line num="2" count="3" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -409,7 +413,7 @@
     </package>
     <package name="back_end.src.functionalities.users">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="users.router.config.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/users.router.config.ts">
+      <file name="users.router.config.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/users.router.config.ts">
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -429,7 +433,7 @@
     </package>
     <package name="back_end.src.functionalities.users.controllers">
       <metrics statements="24" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
-      <file name="users.controller.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/controllers/users.controller.ts">
+      <file name="users.controller.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/controllers/users.controller.ts">
         <metrics statements="24" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -458,8 +462,8 @@
       </file>
     </package>
     <package name="back_end.src.functionalities.users.dao">
-      <metrics statements="52" coveredstatements="50" conditionals="8" coveredconditionals="6" methods="15" coveredmethods="14"/>
-      <file name="sessions.dao.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/dao/sessions.dao.ts">
+      <metrics statements="53" coveredstatements="51" conditionals="8" coveredconditionals="6" methods="16" coveredmethods="15"/>
+      <file name="sessions.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/dao/sessions.dao.ts">
         <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -480,8 +484,8 @@
         <line num="46" count="88" type="stmt"/>
         <line num="50" count="3" type="stmt"/>
       </file>
-      <file name="users.dao.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/dao/users.dao.ts">
-        <metrics statements="34" coveredstatements="32" conditionals="8" coveredconditionals="6" methods="10" coveredmethods="9"/>
+      <file name="users.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/dao/users.dao.ts">
+        <metrics statements="35" coveredstatements="33" conditionals="8" coveredconditionals="6" methods="11" coveredmethods="10"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -494,6 +498,7 @@
         <line num="32" count="12" type="stmt"/>
         <line num="33" count="12" type="stmt"/>
         <line num="35" count="12" type="stmt"/>
+        <line num="39" count="1" type="cond" truecount="0" falsecount="2"/>
         <line num="40" count="1" type="stmt"/>
         <line num="49" count="18" type="stmt"/>
         <line num="53" count="7" type="stmt"/>
@@ -520,7 +525,7 @@
     </package>
     <package name="back_end.src.functionalities.users.middleware">
       <metrics statements="35" coveredstatements="34" conditionals="16" coveredconditionals="15" methods="8" coveredmethods="8"/>
-      <file name="users.middleware.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/middleware/users.middleware.ts">
+      <file name="users.middleware.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/middleware/users.middleware.ts">
         <metrics statements="35" coveredstatements="34" conditionals="16" coveredconditionals="15" methods="8" coveredmethods="8"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -561,7 +566,7 @@
     </package>
     <package name="back_end.src.functionalities.users.models">
       <metrics statements="16" coveredstatements="16" conditionals="14" coveredconditionals="8" methods="1" coveredmethods="1"/>
-      <file name="user.model.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/models/user.model.ts">
+      <file name="user.model.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/models/user.model.ts">
         <metrics statements="16" coveredstatements="16" conditionals="14" coveredconditionals="8" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -583,7 +588,7 @@
     </package>
     <package name="back_end.src.functionalities.users.services">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
-      <file name="users.service.ts" path="/home/riccardo/Documents/Git/testsFolder/back_end/src/functionalities/users/services/users.service.ts">
+      <file name="users.service.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/services/users.service.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
         <line num="2" count="3" type="stmt"/>
         <line num="6" count="1" type="stmt"/>

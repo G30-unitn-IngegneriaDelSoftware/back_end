@@ -17,3 +17,6 @@ Dockerfile
 docker-compose.yml
 
 data/
+
+#ignore coverage
+coverage
