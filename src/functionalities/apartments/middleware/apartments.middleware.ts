@@ -4,7 +4,7 @@ import apartmentService from '../services/apartment.service'
 import { ApartmentModel } from '../models/apartment.model';
 import { validate } from 'class-validator';
 import sessionsDao from '../../users/dao/sessions.dao';
-import expensesService from 'functionalities/expenses/services/expenses.service';
+import expensesService from '../../expenses/services/expenses.service';
 
 class ApartmentsMiddleware{
     async validateApartmentBody(
