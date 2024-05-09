@@ -7,6 +7,7 @@ import { IApartment } from "../models/apartment.interface";
 import expensesDao from "../../expenses/dao/expenses.dao";
 import { IExpense } from "../../expenses/model/expenses.interface";
 import expensesService from "../../expenses/services/expenses.service";
+import expensesController from "functionalities/expenses/controllers/expenses.controller";
 
 class ApartmentsDao{
     Shema = mongooseService.getMongoose().Schema;
@@ -107,6 +108,15 @@ class ApartmentsDao{
 
     //DELETE
     async deleteById(apartmentId: string){
+        const apartment = await this.getApartmentById(apartmentId);
+        if(apartment){
+            const expenses = apartment.expenses;
+
+            expenses.map((expense) => {
+                expensesService.deleteById(expense);
+            });
+        }
+
         await this.Apartment.findOneAndDelete({_id: apartmentId});
     }
 
