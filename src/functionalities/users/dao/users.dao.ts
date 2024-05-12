@@ -4,6 +4,10 @@ import * as crypto from 'crypto';
 import mongooseService from "../../common/services/mongoose.service";
 import { IUser } from '../models/user.interface';
 import sessionsDao from './sessions.dao';
+import apartmentsDao from '../../apartments/dao/apartments.dao';
+import apartmentService from '../../apartments/services/apartment.service';
+import expensesService from '../../expenses/services/expenses.service';
+import expensesDao from '../../expenses/dao/expenses.dao';
 
 class UsersDao {
     Schema = mongooseService.getMongoose().Schema;
@@ -100,6 +104,48 @@ class UsersDao {
 
     //DELETE requests
     async removeById(userId: string){
+        const user = await this.getUserByid(userId);
+        const username = user?.username;
+
+        if(username){
+            const apartments = await apartmentsDao.listUserApartments(25, 0, username);
+
+            apartments.map(async (apartment) => {
+                if(apartment._id){
+                    apartment.expenses.map(async expenseId => {
+                        const expense = await expensesService.readById(expenseId);
+
+                        if(expense){
+                            //Se l'utente ha pagato la spesa la spesa viene direttamente rimossa
+                            if(expense.creditor && expense.creditor === username){
+                                await expensesDao.removeExpenseById(expenseId);
+                                return;
+                            }
+
+                            //Altrimenti solo il riferimento all'utente viene rimosso
+                            const debitors = expense.debitors;
+
+                            let debitorIndex = debitors.indexOf(username);
+
+                            if(debitorIndex >= 0){
+                                console.log(debitors);
+                                debitors.splice(debitorIndex, 1);
+                                console.log(debitors);
+                                await expensesService.patchById(expenseId, { debitors: debitors });
+                            }
+                        }
+                    });
+
+                    const users = apartment.users;
+
+                    let index = users.indexOf(username);
+                    users.splice(index, 1);
+
+                    await apartmentService.patchById(apartment._id, {users: users});
+                }
+            });
+        }
+
         await this.User.deleteOne({_id: userId}).exec();
     }
 }
