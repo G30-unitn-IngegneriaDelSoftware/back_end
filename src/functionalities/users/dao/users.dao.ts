@@ -128,9 +128,7 @@ class UsersDao {
                             let debitorIndex = debitors.indexOf(username);
 
                             if(debitorIndex >= 0){
-                                console.log(debitors);
                                 debitors.splice(debitorIndex, 1);
-                                console.log(debitors);
                                 await expensesService.patchById(expenseId, { debitors: debitors });
                             }
                         }
