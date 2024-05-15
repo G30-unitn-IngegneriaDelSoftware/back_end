@@ -29,12 +29,12 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
 });
 
-//if(process.env.NODE_ENV !== 'test'){
+if(process.env.NODE_ENV !== 'test'){
     app.listen(port, () => {
         // our only exception to avoiding console.log(), because we
         // always want to know when the server is done starting up
         console.log(runningMessage);
     });
-//}
+}
 
 export default app;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1714406280166" clover="3.2.0">
-  <project timestamp="1714406280167" name="All files">
-    <metrics statements="470" coveredstatements="449" conditionals="127" coveredconditionals="98" methods="140" coveredmethods="130" elements="737" coveredelements="677" complexity="0" loc="470" ncloc="470" packages="21" files="22" classes="22"/>
+<coverage generated="1715702600058" clover="3.2.0">
+  <project timestamp="1715702600058" name="All files">
+    <metrics statements="500" coveredstatements="463" conditionals="139" coveredconditionals="103" methods="145" coveredmethods="131" elements="784" coveredelements="697" complexity="0" loc="500" ncloc="500" packages="21" files="22" classes="22"/>
     <package name="back_end">
       <metrics statements="22" coveredstatements="19" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="0"/>
       <file name="app.ts" path="/home/riccardo/Documents/Git/back_end/app.ts">
@@ -129,45 +129,50 @@
       </file>
     </package>
     <package name="back_end.src.functionalities.apartments.dao">
-      <metrics statements="36" coveredstatements="32" conditionals="6" coveredconditionals="2" methods="15" coveredmethods="13"/>
+      <metrics statements="41" coveredstatements="37" conditionals="7" coveredconditionals="3" methods="16" coveredmethods="14"/>
       <file name="apartments.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/apartments/dao/apartments.dao.ts">
-        <metrics statements="36" coveredstatements="32" conditionals="6" coveredconditionals="2" methods="15" coveredmethods="13"/>
+        <metrics statements="41" coveredstatements="37" conditionals="7" coveredconditionals="3" methods="16" coveredmethods="14"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="33" count="1" type="cond" truecount="0" falsecount="2"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="43" count="41" type="stmt"/>
-        <line num="47" count="2" type="stmt"/>
-        <line num="49" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="59" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="62" count="2" type="stmt"/>
-        <line num="64" count="2" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="72" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="34" count="7" type="cond" truecount="0" falsecount="2"/>
+        <line num="35" count="7" type="stmt"/>
+        <line num="44" count="44" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="50" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="60" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="65" count="2" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
         <line num="73" count="3" type="stmt"/>
-        <line num="78" count="3" type="stmt"/>
+        <line num="74" count="3" type="stmt"/>
         <line num="79" count="3" type="stmt"/>
-        <line num="84" count="3" type="stmt"/>
-        <line num="92" count="2" type="stmt"/>
+        <line num="80" count="3" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
         <line num="93" count="2" type="stmt"/>
-        <line num="97" count="2" type="stmt"/>
-        <line num="101" count="1" type="stmt"/>
-        <line num="110" count="3" type="stmt"/>
-        <line num="115" count="1" type="stmt"/>
-        <line num="123" count="1" type="stmt"/>
-        <line num="129" count="1" type="stmt"/>
-        <line num="133" count="3" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="111" count="3" type="stmt"/>
+        <line num="112" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="113" count="3" type="stmt"/>
+        <line num="115" count="3" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="120" count="3" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+        <line num="143" count="3" type="stmt"/>
       </file>
     </package>
     <package name="back_end.src.functionalities.apartments.middleware">
@@ -330,7 +335,7 @@
         <line num="46" count="2" type="stmt"/>
         <line num="47" count="2" type="stmt"/>
         <line num="52" count="2" type="stmt"/>
-        <line num="61" count="2" type="stmt"/>
+        <line num="61" count="3" type="stmt"/>
         <line num="65" count="3" type="stmt"/>
       </file>
     </package>
@@ -407,7 +412,7 @@
         <line num="14" count="2" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
         <line num="30" count="3" type="stmt"/>
       </file>
     </package>
@@ -462,7 +467,7 @@
       </file>
     </package>
     <package name="back_end.src.functionalities.users.dao">
-      <metrics statements="53" coveredstatements="51" conditionals="8" coveredconditionals="6" methods="16" coveredmethods="15"/>
+      <metrics statements="78" coveredstatements="60" conditionals="19" coveredconditionals="10" methods="20" coveredmethods="15"/>
       <file name="sessions.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/dao/sessions.dao.ts">
         <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="1" count="3" type="stmt"/>
@@ -485,42 +490,67 @@
         <line num="50" count="3" type="stmt"/>
       </file>
       <file name="users.dao.ts" path="/home/riccardo/Documents/Git/back_end/src/functionalities/users/dao/users.dao.ts">
-        <metrics statements="35" coveredstatements="33" conditionals="8" coveredconditionals="6" methods="11" coveredmethods="10"/>
+        <metrics statements="60" coveredstatements="42" conditionals="19" coveredconditionals="10" methods="15" coveredmethods="10"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="24" count="3" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="12" type="stmt"/>
-        <line num="32" count="12" type="stmt"/>
-        <line num="33" count="12" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
         <line num="35" count="12" type="stmt"/>
-        <line num="39" count="1" type="cond" truecount="0" falsecount="2"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="49" count="18" type="stmt"/>
-        <line num="53" count="7" type="stmt"/>
-        <line num="58" count="6" type="stmt"/>
-        <line num="59" count="6" type="stmt"/>
-        <line num="61" count="6" type="stmt"/>
+        <line num="36" count="12" type="stmt"/>
+        <line num="37" count="12" type="stmt"/>
+        <line num="39" count="12" type="stmt"/>
+        <line num="43" count="1" type="cond" truecount="0" falsecount="2"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="53" count="24" type="stmt"/>
+        <line num="57" count="7" type="stmt"/>
+        <line num="62" count="6" type="stmt"/>
         <line num="63" count="6" type="stmt"/>
-        <line num="68" count="6" type="stmt"/>
-        <line num="69" count="6" type="stmt"/>
+        <line num="65" count="6" type="stmt"/>
+        <line num="67" count="6" type="stmt"/>
+        <line num="72" count="6" type="stmt"/>
         <line num="73" count="6" type="stmt"/>
-        <line num="75" count="6" type="cond" truecount="4" falsecount="0"/>
-        <line num="76" count="6" type="stmt"/>
         <line num="77" count="6" type="stmt"/>
-        <line num="79" count="6" type="stmt"/>
-        <line num="81" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="82" count="5" type="stmt"/>
-        <line num="83" count="5" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="94" count="2" type="stmt"/>
-        <line num="103" count="6" type="stmt"/>
-        <line num="107" count="3" type="stmt"/>
+        <line num="79" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="81" count="6" type="stmt"/>
+        <line num="83" count="6" type="stmt"/>
+        <line num="85" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="86" count="5" type="stmt"/>
+        <line num="87" count="5" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="107" count="6" type="stmt"/>
+        <line num="108" count="6" type="cond" truecount="3" falsecount="1"/>
+        <line num="110" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="111" count="6" type="stmt"/>
+        <line num="113" count="6" type="stmt"/>
+        <line num="114" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="118" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="120" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="121" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="128" count="0" type="stmt"/>
+        <line num="130" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="132" count="0" type="stmt"/>
+        <line num="137" count="0" type="stmt"/>
+        <line num="139" count="0" type="stmt"/>
+        <line num="140" count="0" type="stmt"/>
+        <line num="142" count="0" type="stmt"/>
+        <line num="147" count="6" type="stmt"/>
+        <line num="151" count="3" type="stmt"/>
       </file>
     </package>
     <package name="back_end.src.functionalities.users.middleware">
