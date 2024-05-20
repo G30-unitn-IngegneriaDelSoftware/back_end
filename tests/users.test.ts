@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import app from '../app';
+import app from '../index';
 import { IUser } from 'functionalities/users/models/user.interface';
 
 let server: any;
