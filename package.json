@@ -4,7 +4,8 @@
   "description": "Back-end for Software enginering Course at University of Trento 2023",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "vercel-build": "tsc",
+    "start": "tsc && node --unhandled-rejections=strict ./dist/index.js",
     "debug": "export DEBUG=* && npm run start",
     "test": "tsc && set NODE_ENV=test && jest --coverage --maxWorkers=1 --forceExit"
   },

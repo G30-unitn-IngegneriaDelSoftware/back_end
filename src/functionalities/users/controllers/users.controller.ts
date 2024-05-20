@@ -10,7 +10,14 @@ class UsersController{
         if(response == -1){
             res.status(401).send({message: "Invalid authentication credentials"});
         }else{
-            res.cookie('session', response, {maxAge: 60 * 60 * 1000, secure: true, sameSite: 'none'});
+            res.cookie('session', response, {
+                maxAge: 60 * 60 * 1000, 
+                sameSite: 'none',
+                httpOnly: true,
+                partitioned: true,
+                secure: true,
+                path: '/'
+            });
             res.setHeader('Access-Control-Allow-Credentials', 'true');
             res.status(204).send();
         }

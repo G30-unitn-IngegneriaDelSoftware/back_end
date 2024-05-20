@@ -15,7 +15,20 @@ const routes: Array<CommonRoutesConfig> = [];
 // here we are adding middleware to parse all incoming requests as JSON 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: "http://localhost:3000", credentials: true}));
+
+const domains = ["http://localhost:3000", "https://is-2024-front-end.vercel.app"];
+
+app.use(cors({
+    origin: (origin: any, callback: any) => {
+        if (!origin || domains.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // Enable CORS credentials (cookies, authorization headers, etc.)
+    exposedHeaders: ["Set-Cookie"]
+}));
 
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
